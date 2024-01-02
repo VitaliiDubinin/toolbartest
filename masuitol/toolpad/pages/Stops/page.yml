@@ -1,0 +1,116 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/mui/mui-toolpad/v0.1.43/docs/schemas/v1/definitions.json#properties/Page
+
+apiVersion: v1
+kind: page
+spec:
+  title: schedules
+  content:
+    - component: Button
+      name: button
+      props:
+        content: test API
+        loading: false
+        onClick:
+          $$jsExpressionAction: stopFindAll.refetch()
+    - component: DataGrid
+      name: ddataStopGrid
+      props:
+        rows:
+          $$jsExpression: |
+            stopFindAll.data
+        columns:
+          - field: id
+            type: number
+          - field: name
+            type: string
+          - field: description
+            type: json
+          - field: creator
+            type: number
+          - field: locales
+            type: json
+          - field: active
+            type: boolean
+          - field: number
+            type: number
+          - field: abbreviation
+            type: string
+          - field: address
+            type: string
+          - field: depot
+            type: boolean
+    - component: DataGrid
+      name: dataStopPointGrid
+      props:
+        rows:
+          $$jsExpression: |
+            stopPointFindAll.data
+        columns:
+          - field: id
+            type: number
+          - field: name
+            type: string
+          - field: description
+            type: json
+          - field: creator
+            type: number
+          - field: locales
+            type: json
+          - field: active
+            type: boolean
+          - field: x
+            type: number
+          - field: y
+            type: number
+          - field: number
+            type: number
+          - field: stopId
+            type: json
+  queries:
+    - name: actStopFindAll
+      mode: mutation
+      query:
+        kind: rest
+        url: http://localhost:4995/api/stop/find-all
+        headers: []
+        method: GET
+        searchParams: []
+    - name: stopFindAll
+      mode: query
+      query:
+        kind: rest
+        url: http://localhost:4995/api/stop/find-all
+        headers: []
+        method: GET
+        transform: >-
+          //return Object.entries(data)
+
+          //const originalArray = data;
+
+          //const transformedArray = originalArray.map(obj => Object.entries(obj));
+
+          //return transformedArray;
+
+          return data.map(elem => {  const persistent = elem.persistent; const copy = { ...persistent, ...elem }; delete copy.persistent; return copy; })
+        transformEnabled: true
+        searchParams: []
+    - name: stopPointFindAll
+      mode: query
+      query:
+        kind: rest
+        url: http://localhost:4995/api/stop-point/find-all
+        headers: []
+        method: GET
+        transform: |-
+
+          return data.map(elem => {
+
+            const { persistent, point, ...rest } = elem;
+            const combined = { ...persistent, ...point };
+            const result = { ...combined, ...rest };
+
+            return result;
+          });
+        transformEnabled: true
+        searchParams: []
+  display: shell
