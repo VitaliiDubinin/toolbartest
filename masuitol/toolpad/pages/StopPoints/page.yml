@@ -93,22 +93,15 @@ spec:
                     width: 141
                   - field: description
                     type: json
-                  - field: creator
-                    type: number
-                  - field: locales
-                    type: json
                   - field: active
                     type: boolean
                   - field: x
                     type: number
                   - field: y
                     type: number
-                  - field: number
-                    type: number
-                  - field: stopId
-                    type: json
                 hideToolbar: true
                 loading: false
+                rowsSource: prop
             - component: Text
               name: stpoupdhead
               layout:
@@ -269,12 +262,12 @@ spec:
                 formControlsAlign: end
               children:
                 - component: PageRow
-                  name: pageRow5
+                  name: pageRow1
                   props:
                     justifyContent: start
                   children:
                     - component: TextField
-                      name: idsp
+                      name: idsp1
                       layout:
                         columnSize: 1
                       props:
@@ -288,7 +281,7 @@ spec:
                         #   $$jsExpression: |
                         #     dataStopPointGrid.selection.id
                     - component: TextField
-                      name: namesp
+                      name: namesp1
                       layout:
                         columnSize: 1
                       props:
@@ -302,7 +295,7 @@ spec:
                         #   $$jsExpression: |
                         #     dataStopPointGrid.selection.name
                     - component: TextField
-                      name: xlat
+                      name: xlat1
                       layout:
                         columnSize: 1
                       props:
@@ -316,7 +309,7 @@ spec:
                         #   $$jsExpression: |
                         #     dataStopPointGrid.selection.x
                     - component: TextField
-                      name: xlong
+                      name: xlong1
                       layout:
                         columnSize: 1
                       props:
@@ -330,12 +323,12 @@ spec:
                         #   $$jsExpression: |
                         #     dataStopPointGrid.selection.y
                 - component: PageRow
-                  name: pageRow6
+                  name: pageRow4
                   props:
                     justifyContent: start
                   children:
                     - component: TextField
-                      name: descrsp
+                      name: descrsp1
                       layout:
                         columnSize: 1
                       props:
@@ -349,7 +342,7 @@ spec:
                           $$jsExpression: |
                             dataStopPointGrid.selection.description
                     - component: TextField
-                      name: refstopid
+                      name: refstopid1
                       layout:
                         columnSize: 1
                       props:
@@ -359,7 +352,6 @@ spec:
                         isRequired: true
                         name: refstopid
                         placeholder: 444
-
 
   queries:
     - name: actStopFindAll
@@ -465,6 +457,7 @@ spec:
           contentType: application/json
         method: PUT
         transformEnabled: false
+        searchParams: []
     - name: testFunct
       mode: mutation
       query:
