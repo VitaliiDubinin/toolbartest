@@ -99,6 +99,8 @@ spec:
                     type: number
                   - field: y
                     type: number
+                  - field: stopId
+                    type: json
                 hideToolbar: true
                 loading: false
                 rowsSource: prop
@@ -117,9 +119,11 @@ spec:
               props:
                 onSubmit:
                   $$jsExpressionAction: |-
-                    await updateStopPoint.call();
-                    getCustomers.refetch();
-                submitButtonText: Update
+                    //await updateStopPoint.call();
+                    //getCustomers.refetch();
+                    testFunct.call()
+                    stopPointFindAll.refetch()
+                submitButtonText: null
                 hasResetButton: false
                 hideControls: false
                 formControlsFullWidth: false
@@ -362,7 +366,7 @@ spec:
         searchParams: []
         headers: []
         method: GET
-    - name: stopFindAll
+    - name: queStopFindAll
       mode: query
       query:
         kind: rest
@@ -467,9 +471,26 @@ spec:
         - name: id
           value:
             $$jsExpression: |
-              dataStopPointGrid.selection?.id
+              updateStopPointForm.value
         - name: values
           value:
             $$jsExpression: |
               updateStopPointForm.value
+    - name: actStopPointFindAll
+      mode: mutation
+      query:
+        kind: rest
+        url: http://localhost:4995/api/stop-point/find-all
+        headers: []
+        method: GET
+    - name: createStopPoint
+      mode: mutation
+      query:
+        function: functions2.ts#createStopPoint
+        kind: local
+      parameters:
+        - name: values
+          value:
+            $$jsExpression: |
+              createStopPointForm.value
   display: shell

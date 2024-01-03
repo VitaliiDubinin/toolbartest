@@ -1,44 +1,99 @@
-/**
- * Toolpad handlers file.
- */
 
-interface StopPoint{
-  persistent?: {
-  id: number;
-  name?: string;
-  description?: string;
-  creator?: number;
-  locales?: [];
-   active?: boolean;
-  },
-    number?: number;
- poin?: {
-        x?: GeolocationCoordinates,
-        y?: GeolocationCoordinates
-    },
-  stopId?: number;
-}
+
+import axios from 'axios';
 
 
 
 
-const stoppoints: StopPoint[] = { ...StopPoint }
-
-// export default async function handler(message: string) {
-//   return `Hello ${message}`;
-// }
 
 
-export async function updateStopPoint(id: number, values: Omit<StopPoint, 'id'>) {
-  const index = stoppoints.findIndex((item) => item.persistent?.id === id);
 
-  if (stoppoints[index]) {
-    Object.assign(stoppoints[index], values);
+
+
+  
+
+export async function updateStopPoint(values) {
+  try {
+ 
+    const transformedValues = {
+      persistent: {
+        id: values.idsp,
+        name: values.namesp,
+        description: values.descrsp || null,
+        creator: values.creator || 100, 
+        locales: [],
+        active: true,
+      },
+      number: values.idsp,
+      point: {
+        x: values.xlat,
+        y: values.xlong,
+      },
+      stopId: values.refstopid || null,
+    };
+
+
+
+      const requestBody = JSON.stringify(transformedValues);
+
+      const headers = {
+        'Content-Type': 'application/json',
+      };
+
+      const response = await axios.put('http://localhost:4995/api/stop-point/edit', requestBody, {
+        headers,
+      });
+
+      console.log('PUT Request Response:', response.data);
+
+      return response.data;
+
+  } catch (error) {
+    console.error('Error updating stop point:', error);
+    throw error;
   }
-
-  return stoppoints[index];
 }
 
-export async function getStopPointsAll() {
-  return stoppoints;
+
+
+export async function createStopPoint(values) {
+  try {
+ 
+    const transformedValues = {
+      persistent: {
+        id: values.idsp,
+        name: values.namesp,
+        description: values.descrsp || null,
+        creator: values.creator || 100, 
+        locales: [],
+        active: true,
+      },
+      number: values.idsp,
+      point: {
+        x: values.xlat,
+        y: values.xlong,
+      },
+      stopId: values.refstopid || null,
+    };
+
+
+
+      const requestBody = JSON.stringify(transformedValues);
+
+      const headers = {
+        'Content-Type': 'application/json',
+      };
+
+      const response = await axios.post('http://localhost:4995/api/stop-point/create', requestBody, {
+        headers,
+      });
+
+      console.log('POST Request Response:', response.data);
+
+      return response.data;
+
+  } catch (error) {
+    console.error('Error updating stop point:', error);
+    throw error;
+  }
 }
