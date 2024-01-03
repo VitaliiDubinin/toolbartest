@@ -8,6 +8,7 @@
     "start": "toolpad start"
   },
   "dependencies": {
-    "@mui/toolpad": "^0.1.43"
+    "@mui/toolpad": "^0.1.43",
+    "axios": "^1.6.4"
   }
 }
