@@ -4,14 +4,34 @@
  */
 
 import { createDataProvider } from "@mui/toolpad/server";
+
+// import DATA  from '../../public/movies.json';
+// export default createDataProvider({
+//   async getRecords({ paginationModel: { start = 0, pageSize=3 } }) {
+//     const records = DATA.movies.slice(start, start + pageSize);
+//     return { records, totalCount: DATA.movies.length };
+//   },
+// });
+
 //import { DATA } from './functions2';
-import DATA  from '../../public/movies.json';
+import { getStopPointAll } from './functions2';
+
+
+let DATA = []; 
+
+getStopPointAll().then((data) => {
+  DATA = data; 
+});
+
 export default createDataProvider({
-  async getRecords({ paginationModel: { start = 0, pageSize = 3 } }) {
-    const records = DATA.slice(start, start + pageSize);
-    return { records, totalCount: DATA.length };
+
+  async getRecords({ paginationModel: { start = 0, pageSize=3 } }) {
+    const records = DATA?.slice(start, start + pageSize);
+    return { records, totalCount: DATA?.length };
   },
 });
+
+
 
 // export default createDataProvider({
 

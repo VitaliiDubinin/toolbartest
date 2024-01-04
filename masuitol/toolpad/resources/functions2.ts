@@ -4,7 +4,7 @@ import axios from 'axios';
 export let DATA = [];
 
 
-export async function getStopPoint() {
+export async function getStopPointAll() {
   try {
       const headers = {
         'Content-Type': 'application/json',
@@ -15,8 +15,22 @@ export async function getStopPoint() {
       });
 
       console.log('GET Request Response:', response.data);
-DATA=response.data
-      return DATA;
+    //   DATA=response.data
+    // return DATA;
+        return response.data.map((item) => ({
+
+        id: item.persistent.id,
+        name: item.persistent.name,
+        description: item.persistent.description,
+        creator: item.persistent.creator,
+        locales: item.persistent.locales,
+        active: item.persistent.active,
+        x: item.point.x,
+        y: item.point.y,
+        number: item.number,
+//        point: item.point,
+      
+    }));
 
   } catch (error) {
     console.error('Error getting stop point:', error);
@@ -117,6 +131,41 @@ export async function createStopPoint(values) {
 
   } catch (error) {
     console.error('Error updating stop point:', error);
+    throw error;
+  }
+}
+
+
+export async function getStopAll() {
+  try {
+      const headers = {
+        'Content-Type': 'application/json',
+      };
+
+      const response = await axios.get('http://localhost:4995/api/stop/find-all',{
+        headers,
+      });
+
+      console.log('GET Request Response:', response.data);
+  
+        return response.data.map((item) => ({
+          number: item.number,
+          abbreviation: item.abbreviation,
+          address: item.address,
+          depot: item.depot,
+          id: item.persistent.id,
+          name: item.persistent.name,
+          description: item.persistent.description,
+          creator: item.persistent.creator,
+             locales: item.persistent.locales,
+          active: item.persistent.active,
+        
+        
+      
+    }));
+
+  } catch (error) {
+    console.error('Error getting stop point:', error);
     throw error;
   }
 }

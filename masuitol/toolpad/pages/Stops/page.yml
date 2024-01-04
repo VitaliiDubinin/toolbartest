@@ -19,18 +19,6 @@ spec:
           $$jsExpression: |
             stopFindAll.data
         columns:
-          - field: id
-            type: number
-          - field: name
-            type: string
-          - field: description
-            type: json
-          - field: creator
-            type: number
-          - field: locales
-            type: json
-          - field: active
-            type: boolean
           - field: number
             type: number
           - field: abbreviation
@@ -39,22 +27,6 @@ spec:
             type: string
           - field: depot
             type: boolean
-        dataProviderId: dataProviderStops.ts:default
-        rowsSource: prop
-    - component: DataGrid
-      name: dataGrid
-      props:
-        rowsSource: dataProvider
-        dataProviderId: dataProviderStops.ts:default
-        columns:
-          - field: new
-    - component: DataGrid
-      name: dataStopPointGrid
-      props:
-        rows:
-          $$jsExpression: |
-            stopPointFindAll.data
-        columns:
           - field: id
             type: number
           - field: name
@@ -67,14 +39,28 @@ spec:
             type: json
           - field: active
             type: boolean
-          - field: x
-            type: number
-          - field: y
-            type: number
-          - field: number
-            type: number
-          - field: stopId
-            type: json
+        rowsSource: dataProvider
+        dataProviderId: dataProviderStopAll.ts:default
+    - component: DataGrid
+      name: dataStopPointGrid
+      props:
+        columns:
+          [
+            { field: id, type: number },
+            { field: name, type: string },
+            { field: description, type: json },
+            { field: creator, type: number },
+            { field: locales, type: json },
+            { field: active, type: boolean },
+            { field: x, type: number },
+            { field: y, type: number },
+            { field: number, type: number },
+          ]
+        rows:
+          $$jsExpression: |
+            stopPointFindAll.data
+        rowsSource: dataProvider
+        dataProviderId: dataProviderStops.ts:default
   queries:
     - name: actStopFindAll
       mode: mutation
