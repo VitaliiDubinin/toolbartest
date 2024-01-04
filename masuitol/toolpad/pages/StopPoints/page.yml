@@ -256,9 +256,10 @@ spec:
                 columnSize: 1
               props:
                 onSubmit:
-                  $$jsExpressionAction: |-
-                    await createCustomer.call();
-                    getCustomers.refetch();
+                  $$jsExpressionAction: |
+                    let value = createStopPointForm.value
+                    createStopPoint.call(value)
+                    //getCustomers.refetch();
                 submitButtonText: Create
                 hasResetButton: false
                 hideControls: false

@@ -1,9 +1,28 @@
 
 
 import axios from 'axios';
+export let DATA = [];
 
 
+export async function getStopPoint() {
+  try {
+      const headers = {
+        'Content-Type': 'application/json',
+      };
 
+      const response = await axios.get('http://localhost:4995/api/stop-point/find-all',{
+        headers,
+      });
+
+      console.log('GET Request Response:', response.data);
+DATA=response.data
+      return DATA;
+
+  } catch (error) {
+    console.error('Error getting stop point:', error);
+    throw error;
+  }
+}
 
 
 
@@ -61,7 +80,8 @@ export async function createStopPoint(values) {
  
     const transformedValues = {
       persistent: {
-        id: values.idsp,
+      //  id: values.idsp,
+             id: null,
         name: values.namesp,
         description: values.descrsp || null,
         creator: values.creator || 100, 
@@ -73,8 +93,11 @@ export async function createStopPoint(values) {
         x: values.xlat,
         y: values.xlong,
       },
-      stopId: values.refstopid || null,
+    //  stopId: values.refstopid || null,
     };
+
+
+
 
 
 

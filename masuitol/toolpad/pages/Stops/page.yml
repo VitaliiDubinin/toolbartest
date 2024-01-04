@@ -13,7 +13,7 @@ spec:
         onClick:
           $$jsExpressionAction: stopFindAll.refetch()
     - component: DataGrid
-      name: ddataStopGrid
+      name: dataStopGrid
       props:
         rows:
           $$jsExpression: |
@@ -39,6 +39,15 @@ spec:
             type: string
           - field: depot
             type: boolean
+        dataProviderId: dataProviderStops.ts:default
+        rowsSource: prop
+    - component: DataGrid
+      name: dataGrid
+      props:
+        rowsSource: dataProvider
+        dataProviderId: dataProviderStops.ts:default
+        columns:
+          - field: new
     - component: DataGrid
       name: dataStopPointGrid
       props:
