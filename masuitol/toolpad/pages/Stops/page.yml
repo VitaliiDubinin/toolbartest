@@ -59,8 +59,8 @@ spec:
         rows:
           $$jsExpression: |
             stopPointFindAll.data
+        dataProviderId: dataProviderStopPointAll.ts:default
         rowsSource: dataProvider
-        dataProviderId: dataProviderStops.ts:default
   queries:
     - name: actStopFindAll
       mode: mutation

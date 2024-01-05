@@ -169,3 +169,60 @@ export async function getStopAll() {
     throw error;
   }
 }
+
+
+
+
+export async function updateStop(id, data) {
+  try {
+    const respoint = await axios.get(`http://localhost:4995/api/stop/${id}`, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    const item = respoint.data;
+    //console.log("item",item)
+    //console.log("data",data)
+
+
+
+
+    // if (data.description !== undefined) {
+    //   item.persistent.description = data.description;
+    //   delete data.description; 
+    // }
+
+ const persistentKeys = ['description', 'name', 'creator', 'locales','active']; 
+    for (const key of persistentKeys) {
+      if (data[key] !== undefined) {
+        item.persistent[key] = data[key];
+        delete data[key];
+      }
+    }
+
+
+
+        const updatedItem = {
+      ...item,
+      ...data,
+    };
+
+    const requestBody = JSON.stringify(updatedItem);
+  //  console.log("requestBody",requestBody)
+    const headers = {
+      'Content-Type': 'application/json',
+    };
+
+    const response = await axios.put('http://localhost:4995/api/stop/edit', requestBody, {
+      headers,
+    });
+
+  //  console.log('PUT Request Response:', response.data);
+
+    return response.data;
+  } catch (error) {
+  //  console.error('Error updating stop:', error);
+    throw error;
+  }
+}
