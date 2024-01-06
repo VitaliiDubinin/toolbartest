@@ -136,7 +136,6 @@ export async function updateStopPointForm(values) {
 }
 
 
-
 export async function createStopPointForm(values) {
   try {
  
@@ -211,7 +210,6 @@ export async function getStopAll() {
 
 
 
-
 export async function updateStop(id, data) {
   try {
     const respoint = await axios.get(`http://localhost:4995/api/stop/${id}`, {
@@ -262,6 +260,87 @@ export async function updateStop(id, data) {
     return response.data;
   } catch (error) {
   //  console.error('Error updating stop:', error);
+    throw error;
+  }
+}
+
+
+export async function updateStopForm(values) {
+  try {
+ 
+    const transformedValues = {
+      persistent: {
+        id: values.ids,
+        name: values.names,
+        description: values.descr || null,
+        creator: values.creator || 100, 
+        locales: [],
+        active: true,
+      },
+      number: values.number || 999,
+      abbreviation: values.abbr,
+      address: values.address,
+      depot:values.depot || true,
+    };
+
+
+
+    const requestBody = JSON.stringify(transformedValues);
+    
+    console.log("stop requestBODY",requestBody);
+
+      const headers = {
+        'Content-Type': 'application/json',
+      };
+
+      const response = await axios.put('http://localhost:4995/api/stop/edit', requestBody, {
+        headers,
+      });
+
+      console.log('PUT Request Response:', response.data);
+
+      return response.data;
+
+  } catch (error) {
+    console.error('Error updating stop point:', error);
+    throw error;
+  }
+}
+
+
+export async function createStopForm(values) {
+  try {
+ 
+    const transformedValues = {
+      persistent: {
+        id: values.ids,
+        name: values.names,
+        description: values.descr || null,
+        creator: values.creator || 100, 
+        locales: [],
+        active: true,
+      },
+      number: values.number || 999,
+      abbreviation: values.abbr,
+      address: values.address,
+      depot:values.depot || true,
+    };
+      const requestBody = JSON.stringify(transformedValues);
+
+      const headers = {
+        'Content-Type': 'application/json',
+      };
+
+      const response = await axios.post('http://localhost:4995/api/stop/create', requestBody, {
+        headers,
+      });
+
+      console.log('POST Request Response:', response.data);
+
+      return response.data;
+
+  } catch (error) {
+    console.error('Error updating stop point:', error);
     throw error;
   }
 }

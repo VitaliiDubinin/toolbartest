@@ -34,7 +34,7 @@ spec:
                     columnSize: 1.8630490956072352
                     horizontalAlign: center
                   props:
-                    value: Stop Points management page
+                    value: Stop's management page
                     variant: h4
                     mode: text
             - component: PageRow
@@ -48,7 +48,7 @@ spec:
                     columnSize: 2.030188679245283
                     horizontalAlign: center
                   props:
-                    value: Stop Points List
+                    value: Stop's List
                     variant: h5
                 - component: Button
                   name: refetchbut
@@ -61,7 +61,7 @@ spec:
                     color: primary
                     variant: outlined
                     onClick:
-                      $$jsExpressionAction: queStopPointEdit.refetch()
+                      $$jsExpressionAction: getCustomers.refetch()
                     loading: false
                     fullWidth: true
                 - component: Button
@@ -80,27 +80,32 @@ spec:
                       $$jsExpression: |
                         !customersGrid.selection
             - component: DataGrid
-              name: dataStopPointGrid
+              name: dataStopGrid
               props:
                 rows:
                   $$jsExpression: |
-                    queStopPointFindAll.data
+                    queStopFindAll.data
                 columns:
                   - field: id
                     type: number
                   - field: name
                     type: string
-                    width: 141
                   - field: description
+                    type: json
+                  - field: creator
+                    type: number
+                  - field: locales
                     type: json
                   - field: active
                     type: boolean
-                  - field: x
+                  - field: number
                     type: number
-                  - field: y
-                    type: number
-                  - field: stopId
-                    type: json
+                  - field: abbreviation
+                    type: string
+                  - field: address
+                    type: string
+                  - field: depot
+                    type: boolean
                 hideToolbar: true
                 loading: false
                 rowsSource: prop
@@ -110,10 +115,10 @@ spec:
                 columnSize: 1
                 horizontalAlign: start
               props:
-                value: Update Stop Point
+                value: Update Stop
                 variant: h5
             - component: Form
-              name: updateStopPointForm
+              name: updateStopForm
               layout:
                 columnSize: 1
               props:
@@ -121,8 +126,8 @@ spec:
                   $$jsExpressionAction: |-
                     //await updateStopPoint.call();
                     //getCustomers.refetch();
-                    await actUpdStopPointForm.call();
-                    queStopPointFindAll.refetch();
+                    actUpdStopForm.call()
+                    queStopFindAll.refetch()
                 submitButtonText: null
                 hasResetButton: false
                 hideControls: false
@@ -135,7 +140,7 @@ spec:
                     justifyContent: start
                   children:
                     - component: TextField
-                      name: idsp
+                      name: ids
                       layout:
                         columnSize: 1
                       props:
@@ -143,13 +148,13 @@ spec:
                         disabled: false
                         fullWidth: true
                         isRequired: true
-                        name: idsp
+                        name: ids
                         placeholder: 111
                         defaultValue:
                           $$jsExpression: |
-                            dataStopPointGrid.selection.id
+                            dataStopGrid.selection.id
                     - component: TextField
-                      name: namesp
+                      name: names
                       layout:
                         columnSize: 1
                       props:
@@ -157,47 +162,46 @@ spec:
                         disabled: false
                         fullWidth: true
                         isRequired: true
-                        name: namesp
+                        name: names
                         placeholder: Sveti Vlas
                         defaultValue:
                           $$jsExpression: |
-                            dataStopPointGrid.selection.name
+                            dataStopGrid.selection.name
                     - component: TextField
-                      name: xlat
+                      name: abbr
                       layout:
                         columnSize: 1
                       props:
-                        label: x (lat)
+                        label: abbr
                         disabled: false
                         fullWidth: true
                         isRequired: true
-                        name: xlat
+                        name: abbr
                         placeholder: 32.628
                         defaultValue:
                           $$jsExpression: |
-                            dataStopPointGrid.selection.x
+                            dataStopGrid.selection.abbreviation
                     - component: TextField
-                      name: xlong
+                      name: number
                       layout:
                         columnSize: 1
                       props:
-                        label: x (long)
+                        label: number
                         disabled: false
                         fullWidth: true
-                        isRequired: true
-                        name: xlong
+                        isRequired: false
+                        name: number
                         placeholder: 55.75
                         defaultValue:
                           $$jsExpression: |
                             dataStopPointGrid.selection.y
-
                 - component: PageRow
                   name: pageRow6
                   props:
                     justifyContent: start
                   children:
                     - component: TextField
-                      name: descrsp
+                      name: descr
                       layout:
                         columnSize: 1
                       props:
@@ -205,60 +209,42 @@ spec:
                         disabled: false
                         fullWidth: true
                         isRequired: true
-                        name: descrsp
+                        name: descrs
                         placeholder: please add a description
                         defaultValue:
                           $$jsExpression: |
                             dataStopPointGrid.selection.description
                     - component: TextField
-                      name: refstopid
+                      name: address
                       layout:
                         columnSize: 1
                       props:
-                        label: Stop ID
+                        label: Address
                         disabled: false
                         fullWidth: true
                         isRequired: true
-                        name: refstopid
+                        name: address
                         placeholder: 444
                         defaultValue:
                           $$jsExpression: |
-                            dataStopPointGrid.selection.stopId
-                    # - component: PageColumn
-                    #   name: pageColumn8
-                    #   layout:
-                    #     columnSize: 1.5271317829457365
-                    #   children:
-                    #     - component: TextField
-                    #       name: xlat
-                    #       layout:
-                    #         columnSize: 0.4
-                    #       props:
-                    #         label: x (lat)
-                    #         disabled: false
-                    #         fullWidth: true
-                    #         isRequired: true
-                    #         name: xlat
-                    #         placeholder: 32.628
-
+                            dataStopGrid.selection.address
             - component: Text
               name: stpocrehead
               layout:
                 columnSize: 1
                 horizontalAlign: start
               props:
-                value: Create Stop Point
+                value: Create Stop
                 variant: h5
-
             - component: Form
-              name: createStopPointForm
+              name: createStopForm
               layout:
                 columnSize: 1
               props:
                 onSubmit:
                   $$jsExpressionAction: |
-                    let value = createStopPointForm.value
-                    actCreateStopPointForm.call(value)
+                    let value = createStopForm.value
+                    actCreateStopForm.call(value)
                     //getCustomers.refetch();
                 submitButtonText: Create
                 hasResetButton: false
@@ -272,7 +258,7 @@ spec:
                     justifyContent: start
                   children:
                     - component: TextField
-                      name: idsp1
+                      name: ids1
                       layout:
                         columnSize: 1
                       props:
@@ -280,13 +266,10 @@ spec:
                         disabled: false
                         fullWidth: true
                         isRequired: true
-                        name: idsp
+                        name: ids
                         placeholder: 111
-                        # defaultValue:
-                        #   $$jsExpression: |
-                        #     dataStopPointGrid.selection.id
                     - component: TextField
-                      name: namesp1
+                      name: names1
                       layout:
                         columnSize: 1
                       props:
@@ -294,46 +277,37 @@ spec:
                         disabled: false
                         fullWidth: true
                         isRequired: true
-                        name: namesp
+                        name: names
                         placeholder: Sveti Vlas
-                        # defaultValue:
-                        #   $$jsExpression: |
-                        #     dataStopPointGrid.selection.name
                     - component: TextField
-                      name: xlat1
+                      name: abbr1
                       layout:
                         columnSize: 1
                       props:
-                        label: x (lat)
+                        label: abbr
                         disabled: false
                         fullWidth: true
                         isRequired: true
-                        name: xlat
+                        name: abbr
                         placeholder: 32.628
-                        # defaultValue:
-                        #   $$jsExpression: |
-                        #     dataStopPointGrid.selection.x
                     - component: TextField
-                      name: xlong1
+                      name: number1
                       layout:
                         columnSize: 1
                       props:
-                        label: x (long)
+                        label: number
                         disabled: false
                         fullWidth: true
                         isRequired: true
-                        name: xlong
+                        name: number
                         placeholder: 55.75
-                        # defaultValue:
-                        #   $$jsExpression: |
-                        #     dataStopPointGrid.selection.y
                 - component: PageRow
                   name: pageRow4
                   props:
                     justifyContent: start
                   children:
                     - component: TextField
-                      name: descrsp1
+                      name: descrs1
                       layout:
                         columnSize: 1
                       props:
@@ -341,65 +315,105 @@ spec:
                         disabled: false
                         fullWidth: true
                         isRequired: true
-                        name: descrsp
+                        name: descrs
                         placeholder: please add a description
                         defaultValue:
                           $$jsExpression: |
                             dataStopPointGrid.selection.description
                     - component: TextField
-                      name: refstopid1
+                      name: address1
                       layout:
                         columnSize: 1
                       props:
-                        label: Stop ID
+                        label: Address
                         disabled: false
                         fullWidth: true
                         isRequired: true
-                        name: refstopid
+                        name: address
                         placeholder: 444
-
   queries:
-    - name: queStopPointFindAll
+    - name: actStopFindAll
+      mode: mutation
+      query:
+        kind: rest
+        url: http://localhost:4995/api/stop/find-all
+        searchParams: []
+        headers: []
+        method: GET
+    - name: queStopFindAll
       mode: query
+      query:
+        kind: rest
+        url: http://localhost:4995/api/stop/find-all
+        searchParams: []
+        headers: []
+        method: GET
+        transform: >-
+          //return Object.entries(data)
+
+          //const originalArray = data;
+
+          //const transformedArray = originalArray.map(obj => Object.entries(obj));
+
+          //return transformedArray;
+
+          return data.map(elem => {  const persistent = elem.persistent; const copy = { ...persistent, ...elem }; delete copy.persistent; return copy; })
+        transformEnabled: true
+    - name: actStopPointEdit
+      mode: mutation
+      query:
+        kind: rest
+        url: http://localhost:4995/api/stop-point/edit
+        searchParams: []
+        headers: [{ name: Content-Type, value: application/json }]
+        method: PUT
+        transformEnabled: false
+        body:
+          kind: raw
+          content: |-
+            {
+                "persistent": {
+                    "id": 1,
+                    "name": "New Point ACT 232",
+                    "description": null,
+                    "creator": 100,
+                    "locales": [],
+                    "active": true
+                },
+                "number": 1,
+                "point": {
+                    "x": 35.6277423,
+                    "y": 58.7502455
+                },
+                "stopId": 12
+            }
+          contentType: application/json
+    - name: actUpdStopForm
+      mode: mutation
+      query:
+        kind: local
+        function: functions2.ts#updateStopForm
+      parameters:
+        - name: values
+          value:
+            $$jsExpression: |
+              updateStopForm.value
+    - name: actStopPointFindAll
+      mode: mutation
       query:
         kind: rest
         url: http://localhost:4995/api/stop-point/find-all
         searchParams: []
         headers: []
         method: GET
-        transform: |-
-
-          return data.map(elem => {
-
-            const { persistent, point, ...rest } = elem;
-            const combined = { ...persistent, ...point };
-            const result = { ...combined, ...rest };
-
-            return result;
-          });
-        transformEnabled: true
-    - name: actUpdStopPointForm
+    - name: actCreateStopForm
       mode: mutation
       query:
         kind: local
-        function: functions2.ts#updateStopPointForm
-      parameters:
-        - name: id
-          value:
-            $$jsExpression: |
-              updateStopPointForm.value
-        - name: values
-          value:
-            $$jsExpression: |
-              updateStopPointForm.value
-    - name: actCreateStopPointForm
-      mode: mutation
-      query:
-        kind: local
-        function: functions2.ts#createStopPointForm
+        function: functions2.ts#createStopForm
       parameters:
         - name: values
           value:
             $$jsExpression: |
-              createStopPointForm.value
+              createStopForm.value
   display: shell
