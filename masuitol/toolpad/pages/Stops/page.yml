@@ -72,9 +72,12 @@ spec:
                     content: Delete Stop Point
                     size: small
                     onClick:
-                      $$jsExpressionAction: |-
-                        await deleteCustomer.call();
-                        getCustomers.refetch();
+                      $$jsExpressionAction: >+
+                        //await deleteCustomer.call();
+
+
+                        contCreateStop.visible = contCreateStop.visible === false ? true : false;
+
                     fullWidth: true
                     disabled:
                       $$jsExpression: |
@@ -228,109 +231,114 @@ spec:
                         defaultValue:
                           $$jsExpression: |
                             dataStopGrid.selection.address
-            - component: Text
-              name: stpocrehead
-              layout:
-                columnSize: 1
-                horizontalAlign: start
+            - component: Container
+              name: contCreateStop
               props:
-                value: Create Stop
-                variant: h5
-            - component: Form
-              name: createStopForm
-              layout:
-                columnSize: 1
-              props:
-                onSubmit:
-                  $$jsExpressionAction: |
-                    let value = createStopForm.value
-                    actCreateStopForm.call(value)
-                    //getCustomers.refetch();
-                submitButtonText: Create
-                hasResetButton: false
-                hideControls: false
-                formControlsFullWidth: false
-                formControlsAlign: end
+                visible: false
               children:
-                - component: PageRow
-                  name: pageRow1
+                - component: Text
+                  name: stpocrehead
+                  layout:
+                    columnSize: 1
+                    horizontalAlign: start
                   props:
-                    justifyContent: start
-                  children:
-                    - component: TextField
-                      name: ids1
-                      layout:
-                        columnSize: 1
-                      props:
-                        label: ID
-                        disabled: false
-                        fullWidth: true
-                        isRequired: true
-                        name: ids
-                        placeholder: 111
-                    - component: TextField
-                      name: names1
-                      layout:
-                        columnSize: 1
-                      props:
-                        label: Name
-                        disabled: false
-                        fullWidth: true
-                        isRequired: true
-                        name: names
-                        placeholder: Sveti Vlas
-                    - component: TextField
-                      name: abbr1
-                      layout:
-                        columnSize: 1
-                      props:
-                        label: abbr
-                        disabled: false
-                        fullWidth: true
-                        isRequired: true
-                        name: abbr
-                        placeholder: 32.628
-                    - component: TextField
-                      name: number1
-                      layout:
-                        columnSize: 1
-                      props:
-                        label: number
-                        disabled: false
-                        fullWidth: true
-                        isRequired: true
-                        name: number
-                        placeholder: 55.75
-                - component: PageRow
-                  name: pageRow4
+                    value: Create Stop
+                    variant: h5
+                - component: Form
+                  name: createStopForm
+                  layout:
+                    columnSize: 1
                   props:
-                    justifyContent: start
+                    onSubmit:
+                      $$jsExpressionAction: |
+                        let value = createStopForm.value
+                        actCreateStopForm.call(value)
+                        //getCustomers.refetch();
+                    submitButtonText: Create
+                    hasResetButton: false
+                    hideControls: false
+                    formControlsFullWidth: false
+                    formControlsAlign: end
                   children:
-                    - component: TextField
-                      name: descrs1
-                      layout:
-                        columnSize: 1
+                    - component: PageRow
+                      name: pageRow1
                       props:
-                        label: Description
-                        disabled: false
-                        fullWidth: true
-                        isRequired: true
-                        name: descrs
-                        placeholder: please add a description
-                        defaultValue:
-                          $$jsExpression: |
-                            dataStopPointGrid.selection.description
-                    - component: TextField
-                      name: address1
-                      layout:
-                        columnSize: 1
+                        justifyContent: start
+                      children:
+                        - component: TextField
+                          name: ids1
+                          layout:
+                            columnSize: 1
+                          props:
+                            label: ID
+                            disabled: false
+                            fullWidth: true
+                            isRequired: true
+                            name: ids
+                            placeholder: 111
+                        - component: TextField
+                          name: names1
+                          layout:
+                            columnSize: 1
+                          props:
+                            label: Name
+                            disabled: false
+                            fullWidth: true
+                            isRequired: true
+                            name: names
+                            placeholder: Sveti Vlas
+                        - component: TextField
+                          name: abbr1
+                          layout:
+                            columnSize: 1
+                          props:
+                            label: abbr
+                            disabled: false
+                            fullWidth: true
+                            isRequired: true
+                            name: abbr
+                            placeholder: 32.628
+                        - component: TextField
+                          name: number1
+                          layout:
+                            columnSize: 1
+                          props:
+                            label: number
+                            disabled: false
+                            fullWidth: true
+                            isRequired: true
+                            name: number
+                            placeholder: 55.75
+                    - component: PageRow
+                      name: pageRow4
                       props:
-                        label: Address
-                        disabled: false
-                        fullWidth: true
-                        isRequired: true
-                        name: address
-                        placeholder: 444
+                        justifyContent: start
+                      children:
+                        - component: TextField
+                          name: descrs1
+                          layout:
+                            columnSize: 1
+                          props:
+                            label: Description
+                            disabled: false
+                            fullWidth: true
+                            isRequired: true
+                            name: descrs
+                            placeholder: please add a description
+                            defaultValue:
+                              $$jsExpression: |
+                                dataStopPointGrid.selection.description
+                        - component: TextField
+                          name: address1
+                          layout:
+                            columnSize: 1
+                          props:
+                            label: Address
+                            disabled: false
+                            fullWidth: true
+                            isRequired: true
+                            name: address
+                            placeholder: 444
   queries:
     - name: actStopFindAll
       mode: mutation
