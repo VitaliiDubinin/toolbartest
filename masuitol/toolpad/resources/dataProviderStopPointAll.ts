@@ -1,9 +1,7 @@
-/**
- * Toolpad data provider file.
- * See: https://mui.com/toolpad/concepts/data-providers/
- */
 
 import { createDataProvider } from "@mui/toolpad/server";
+import axios from "axios";
+
 
 // import DATA  from '../../public/movies.json';
 // export default createDataProvider({
@@ -23,45 +21,52 @@ getStopPointAll().then((data) => {
   DATA = data; 
 });
 
+// import { getStopPointAll, updateStop } from './functions2';
+import {  updateStopPoint } from './functions2';
+
 export default createDataProvider({
 
   async getRecords({ paginationModel: { start = 0, pageSize=3 } }) {
-    const records = DATA?.slice(start, start + pageSize);
-    return { records, totalCount: DATA?.length };
+    // const records = DATA?.slice(start, start + pageSize);
+    // return { records, totalCount: DATA?.length };
+
+          const response = await axios.get('http://localhost:4995/api/stop-point/find-all',{
+        headers: {
+          'Content-Type': 'application/json',
+         }
+      });
+  
+        const records = response.data.map((item) => ({
+          number: item.number,
+          abbreviation: item.abbreviation,
+          address: item.address,
+          depot: item.depot,
+          id: item.persistent.id,
+          name: item.persistent.name,
+          description: item.persistent.description,
+          creator: item.persistent.creator,
+          locales: item.persistent.locales,
+          active: item.persistent.active,
+          x: item.point.x,
+          y:item.point.y,
+    }));
+ const totalCount = records.length;
+
+    return { records, totalCount };
   },
+
+  // },
+
+  async updateRecord(id, data) {
+ //   console.log( {id , data });
+    const stopupdres = await updateStopPoint(id,data)
+ //     console.log("test")
+
+     //return console.log( {id , data });
+     return stopupdres
+  },
+
 });
 
 
 
-// export default createDataProvider({
-
-
-//   async getRecords({ paginationModel: { start, pageSize } }) {
-//     return {
-//       records: [],
-//     };
-//   },
-// });
-
-
-
-
-
-
-// export default createDataProvider({
-//   async getRecords({ paginationModel: { start = 0, pageSize=3 } }) {
-//     const records = DATA?.slice(start, start + pageSize) || [];
-//     return { records, totalCount: DATA?.length || null};
-//   },
-// });
-
-// export default createDataProvider({
-//   paginationMode: 'index',
-//   async getRecords({ paginationModel: { start = 0, pageSize } }) {
-//     const { page, totalCount } = await db.getRecords(start, pageSize);
-//     return {
-//       records: page,
-//       totalCount,
-//     };
-//   },
-// });

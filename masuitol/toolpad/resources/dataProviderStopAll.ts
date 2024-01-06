@@ -3,10 +3,10 @@ import { getStopAll, updateStop } from './functions2';
 import axios from "axios";
 //import { getStopAll } from './functions2';
 
-let DATA = []; 
-getStopAll().then((data) => {
-  DATA = data; 
-});
+// let DATA = []; 
+// getStopAll().then((data) => {
+//   DATA = data; 
+// });
 
 export default createDataProvider({
 
@@ -34,7 +34,7 @@ export default createDataProvider({
           name: item.persistent.name,
           description: item.persistent.description,
           creator: item.persistent.creator,
-             locales: item.persistent.locales,
+          locales: item.persistent.locales,
           active: item.persistent.active,
     }));
  const totalCount = records.length;
@@ -45,10 +45,10 @@ export default createDataProvider({
 
 
   async updateRecord(id, data) {
-    const stopupdres = await updateStop(id,data)
-      console.log("test")
+    const stoppointupdres = await updateStop(id,data)
+ //     console.log("test")
 
      //return console.log( {id , data });
-     return stopupdres
+     return stoppointupdres
   },
 });

@@ -41,21 +41,29 @@ spec:
             type: boolean
         rowsSource: dataProvider
         dataProviderId: dataProviderStopAll.ts:default
+        hideToolbar: true
     - component: DataGrid
       name: dataStopPointGrid
       props:
         columns:
-          [
-            { field: id, type: number },
-            { field: name, type: string },
-            { field: description, type: json },
-            { field: creator, type: number },
-            { field: locales, type: json },
-            { field: active, type: boolean },
-            { field: x, type: number },
-            { field: y, type: number },
-            { field: number, type: number },
-          ]
+          - field: id
+            type: number
+          - field: name
+            type: string
+          - field: description
+            type: json
+          - field: creator
+            type: number
+          - field: locales
+            type: json
+          - field: active
+            type: boolean
+          - field: x
+            type: number
+          - field: y
+            type: number
+          - field: number
+            type: number
         rows:
           $$jsExpression: |
             stopPointFindAll.data
@@ -67,14 +75,15 @@ spec:
       query:
         kind: rest
         url: http://localhost:4995/api/stop/find-all
+        searchParams: []
         headers: []
         method: GET
-        searchParams: []
     - name: stopFindAll
       mode: query
       query:
         kind: rest
         url: http://localhost:4995/api/stop/find-all
+        searchParams: []
         headers: []
         method: GET
         transform: >-
@@ -88,12 +97,12 @@ spec:
 
           return data.map(elem => {  const persistent = elem.persistent; const copy = { ...persistent, ...elem }; delete copy.persistent; return copy; })
         transformEnabled: true
-        searchParams: []
     - name: stopPointFindAll
       mode: query
       query:
         kind: rest
         url: http://localhost:4995/api/stop-point/find-all
+        searchParams: []
         headers: []
         method: GET
         transform: |-
@@ -107,5 +116,4 @@ spec:
             return result;
           });
         transformEnabled: true
-        searchParams: []
   display: shell

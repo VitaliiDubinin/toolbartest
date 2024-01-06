@@ -1,7 +1,5 @@
-
-
 import axios from 'axios';
-export let DATA = [];
+//export let DATA = [];
 
 
 export async function getStopPointAll() {
@@ -38,14 +36,64 @@ export async function getStopPointAll() {
   }
 }
 
+export async function updateStopPoint(id, data) {
+  try {
+    const respoint = await axios.get(`http://localhost:4995/api/stop-point/${id}`, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    const item = respoint.data;
+    //console.log("item",item)
+    //console.log("data",data)
 
 
 
-
-
+ const persistentKeys = ['description', 'name', 'creator', 'locales','active']; 
+    for (const key of persistentKeys) {
+      if (data[key] !== undefined) {
+        item.persistent[key] = data[key];
+        delete data[key];
+      }
+    }
   
+   const pointKeys = ['x', 'y']; 
+    for (const key of pointKeys) {
+      if (data[key] !== undefined) {
+        item.point[key] = data[key];
+        delete data[key];
+      }
+    }
 
-export async function updateStopPoint(values) {
+
+
+
+        const updatedItem = {
+      ...item,
+      ...data,
+    };
+
+    const requestBody = JSON.stringify(updatedItem);
+  //  console.log("requestBody",requestBody)
+    const headers = {
+      'Content-Type': 'application/json',
+    };
+
+    const response = await axios.put('http://localhost:4995/api/stop-point/edit', requestBody, {
+      headers,
+    });
+
+  //  console.log('PUT Request Response:', response.data);
+
+    return response.data;
+  } catch (error) {
+  //  console.error('Error updating stop:', error);
+    throw error;
+  }
+}
+  
+export async function updateStopPointForm(values) {
   try {
  
     const transformedValues = {
@@ -89,13 +137,13 @@ export async function updateStopPoint(values) {
 
 
 
-export async function createStopPoint(values) {
+export async function createStopPointForm(values) {
   try {
  
     const transformedValues = {
       persistent: {
       //  id: values.idsp,
-             id: null,
+        id: null,
         name: values.namesp,
         description: values.descrsp || null,
         creator: values.creator || 100, 
@@ -109,12 +157,6 @@ export async function createStopPoint(values) {
       },
     //  stopId: values.refstopid || null,
     };
-
-
-
-
-
-
       const requestBody = JSON.stringify(transformedValues);
 
       const headers = {
@@ -157,11 +199,8 @@ export async function getStopAll() {
           name: item.persistent.name,
           description: item.persistent.description,
           creator: item.persistent.creator,
-             locales: item.persistent.locales,
-          active: item.persistent.active,
-        
-        
-      
+          locales: item.persistent.locales,
+          active: item.persistent.active,      
     }));
 
   } catch (error) {

@@ -121,7 +121,7 @@ spec:
                   $$jsExpressionAction: |-
                     //await updateStopPoint.call();
                     //getCustomers.refetch();
-                    testFunct.call()
+                    actUpdStopPointForm.call()
                     stopPointFindAll.refetch()
                 submitButtonText: null
                 hasResetButton: false
@@ -258,7 +258,7 @@ spec:
                 onSubmit:
                   $$jsExpressionAction: |
                     let value = createStopPointForm.value
-                    createStopPoint.call(value)
+                    actCreateStopPointForm.call(value)
                     //getCustomers.refetch();
                 submitButtonText: Create
                 hasResetButton: false
@@ -463,10 +463,10 @@ spec:
         method: PUT
         transformEnabled: false
         searchParams: []
-    - name: testFunct
+    - name: actUpdStopPointForm
       mode: mutation
       query:
-        function: functions2.ts#updateStopPoint
+        function: functions2.ts#updateStopPointForm
         kind: local
       parameters:
         - name: id
@@ -484,10 +484,11 @@ spec:
         url: http://localhost:4995/api/stop-point/find-all
         headers: []
         method: GET
-    - name: createStopPoint
+        searchParams: []
+    - name: actCreateStopPointForm
       mode: mutation
       query:
-        function: functions2.ts#createStopPoint
+        function: functions2.ts#createStopPointForm
         kind: local
       parameters:
         - name: values
