@@ -1,5 +1,5 @@
 import { createDataProvider } from "@mui/toolpad/server";
-import { getStopAll, updateStop } from './functions2';
+import { getStopAll, updateStop, deleteStop } from './functions2';
 import axios from "axios";
 //import { getStopAll } from './functions2';
 
@@ -45,10 +45,18 @@ export default createDataProvider({
 
 
   async updateRecord(id, data) {
-    const stoppointupdres = await updateStop(id,data)
+    const stopupdres = await updateStop(id,data)
  //     console.log("test")
 
      //return console.log( {id , data });
-     return stoppointupdres
+     return stopupdres
   },
+
+  async deleteRecord(id) {
+    console.log("id to delete",id)
+    // await db.query(`DELETE FROM users WHERE id = ?`, [id]);
+     const stopdeldres = await deleteStop(id)
+    //console.log("id to delete",id)
+  },
+
 });

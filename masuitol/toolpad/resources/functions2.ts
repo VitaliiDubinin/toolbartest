@@ -92,7 +92,29 @@ export async function updateStopPoint(id, data) {
     throw error;
   }
 }
-  
+ 
+export async function deleteStopPoint(id) {
+  try {
+    
+    const resdel = await axios.delete(`http://localhost:4995/api/stop-point/${id}`, {
+  headers: {
+    'Content-Type': 'application/json',
+  },
+});
+
+
+
+
+    console.log('DEL Request Response:', resdel.status);
+
+    return resdel;
+  } catch (error) {
+  //  console.error('Error updating stop:', error);
+    throw error;
+  }
+}
+
+
 export async function updateStopPointForm(values) {
   try {
  
@@ -258,6 +280,34 @@ export async function updateStop(id, data) {
   //  console.log('PUT Request Response:', response.data);
 
     return response.data;
+  } catch (error) {
+  //  console.error('Error updating stop:', error);
+    throw error;
+  }
+}
+
+export async function deleteStop(id) {
+  try {
+    console.log("id to delete",id)
+    // const resdel = await axios.delete(`http://localhost:4995/api/stop/${id}`, {
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //   },
+    // });
+
+
+    const resdel = await axios.delete(`http://localhost:4995/api/stop/${id}`, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+
+
+
+    console.log('DEL Request Response:', resdel);
+
+    return resdel;
   } catch (error) {
   //  console.error('Error updating stop:', error);
     throw error;

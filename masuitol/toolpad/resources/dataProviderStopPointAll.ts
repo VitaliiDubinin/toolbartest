@@ -12,7 +12,7 @@ import axios from "axios";
 // });
 
 //import { DATA } from './functions2';
-import { getStopPointAll } from './functions2';
+import { getStopPointAll, deleteStopPoint } from './functions2';
 
 
 let DATA = []; 
@@ -65,6 +65,14 @@ export default createDataProvider({
      //return console.log( {id , data });
      return stopupdres
   },
+
+  async deleteRecord(id) {
+ //   console.log("id to delete",id)
+
+     const spdeldres = await deleteStopPoint(id)
+    //console.log("id to delete",id)
+  },
+
 
 });
 

@@ -41,7 +41,8 @@ spec:
             type: boolean
         rowsSource: dataProvider
         dataProviderId: dataProviderStopAll.ts:default
-        hideToolbar: true
+        hideToolbar: false
+        loading: false
     - component: DataGrid
       name: dataStopPointGrid
       props:

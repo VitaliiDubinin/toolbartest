@@ -9,6 +9,8 @@
   },
   "dependencies": {
     "@mui/toolpad": "^0.1.43",
-    "axios": "^1.6.4"
+    "axios": "^1.6.4",
+    "leaflet": "^1.9.4",
+    "leaflet-routing-machine": "^3.2.12"
   }
 }

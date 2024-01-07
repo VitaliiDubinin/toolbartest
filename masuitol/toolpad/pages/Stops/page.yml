@@ -45,7 +45,7 @@ spec:
                 - component: Text
                   name: stoppointtabhead
                   layout:
-                    columnSize: 2.030188679245283
+                    columnSize: 2.329004329004329
                     horizontalAlign: center
                   props:
                     value: Stop's List
@@ -53,7 +53,7 @@ spec:
                 - component: Button
                   name: refetchbut
                   layout:
-                    columnSize: 0.4830188679245283
+                    columnSize: 0.5541125541125541
                     horizontalAlign: center
                   props:
                     size: small
@@ -65,11 +65,32 @@ spec:
                     loading: false
                     fullWidth: true
                 - component: Button
-                  name: delstpobut
+                  name: delstopbut
                   layout:
-                    columnSize: 0.4867924528301887
+                    columnSize: 0.5584415584415584
                   props:
-                    content: Delete Stop Point
+                    content: Delete Stop
+                    color: error
+                    size: small
+                    onClick:
+                      $$jsExpressionAction: >+
+                        //await deleteCustomer.call();
+
+
+                        contCreateStop.visible = contCreateStop.visible === false ? true : false;
+
+                    fullWidth: true
+                    disabled:
+                      $$jsExpression: |
+                        !customersGrid.selection
+                    sx:
+                      background: red
+                - component: Button
+                  name: addstopbut
+                  layout:
+                    columnSize: 0.5584415584415584
+                  props:
+                    content: Add Stop
                     size: small
                     onClick:
                       $$jsExpressionAction: >+
@@ -112,6 +133,7 @@ spec:
                 hideToolbar: true
                 loading: false
                 rowsSource: prop
+                height: 350
             - component: Text
               name: stpoupdhead
               layout:
