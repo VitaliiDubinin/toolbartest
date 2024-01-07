@@ -61,7 +61,7 @@ spec:
                     color: primary
                     variant: outlined
                     onClick:
-                      $$jsExpressionAction: queStopPointEdit.refetch()
+                      $$jsExpressionAction: queStopPointFindAll.refetch()
                     loading: false
                     fullWidth: true
                 - component: Button

@@ -61,7 +61,7 @@ spec:
                     color: primary
                     variant: outlined
                     onClick:
-                      $$jsExpressionAction: getCustomers.refetch()
+                      $$jsExpressionAction: queStopFindAll.refetch()
                     loading: false
                     fullWidth: true
                 - component: Button
