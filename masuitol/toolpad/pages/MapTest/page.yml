@@ -6,7 +6,9 @@ spec:
   title: MapTest
   display: shell
   content:
-    - component: codeComponent.LeafBharat
-      name: leafBharat
+    # - component: codeComponent.LeafBharat
+    #   name: leafBharat
     - component: codeComponent.LeafletRM
       name: leafletRM
+      props:
+        zoom: 10
