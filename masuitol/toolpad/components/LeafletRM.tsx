@@ -6,7 +6,7 @@ import "leaflet-routing-machine";
 import "leaflet-control-geocoder";
 import { Geocoder } from 'leaflet-control-geocoder';
 //import 'leaflet-control-geocoder/dist/Control.Geocoder.css';
-import 'leaflet-control-geocoder/dist/Control.Geocoder.js';
+//import 'leaflet-control-geocoder/dist/Control.Geocoder.js';
 
 
 
@@ -109,19 +109,21 @@ function MapComponent({ startLat, startLng, endLat, endLng, zoom }: MapProps) {
           L.latLng(endLat, endLng), // END YOU MARKER LOCATION
         ],
 
-          geocoder: L.Control.Geocoder.nominatim(),
+        //geocoder: L.Control.Geocoder.nominatim(),
+        geocoder: new Geocoder(),  
     
         routeWhileDragging: true,
-        reverseWaypoints: true,
-          showAlternatives: true,
-        
-
+        //reverseWaypoints: true,
+        routeDragInterval: 100,
+        showAlternatives: true,
         altLineOptions: {
           styles: [
             { color: "black", opacity: 0.15, weight: 14 },
             { color: "white", opacity: 0.8, weight: 6 },
             { color: "blue", opacity: 0.5, weight: 2 },
           ],
+          extendToWaypoints: true,
+          missingRouteTolerance: 2739, 
         },
       });
 
