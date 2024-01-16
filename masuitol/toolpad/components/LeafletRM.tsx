@@ -1,17 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
-import L, { Map as LeafletMap} from "leaflet";
+import L, { Map as LeafletMap } from "leaflet";
 //import { Control } from "leaflet";
 import { createComponent } from "@mui/toolpad-core";
 import "leaflet-routing-machine";
-import "leaflet-control-geocoder";
-import { Geocoder } from 'leaflet-control-geocoder';
+import { Geocoder } from "leaflet-control-geocoder";
 //import 'leaflet-control-geocoder/dist/Control.Geocoder.css';
-import 'leaflet-control-geocoder/dist/Control.Geocoder.js';
-
-
-
-
-
+import "leaflet-control-geocoder/dist/Control.Geocoder.js";
 
 const markerIconUrl =
   "https://esm.sh/leaflet@1.9.4/dist/images/marker-icon.png";
@@ -34,10 +28,7 @@ async function createLeafletStyles(doc: Document) {
   const res3 = await fetch(
     "https://esm.sh/leaflet-control-geocoder/dist/Control.Geocoder.css"
   );
-//   const Geocoder = await fetch(
-//     "https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"
-//   );
-    
+
   if (!res1.ok || !res2.ok || !res3.ok) {
     throw new Error(
       `HTTP ${res1.status}: ${res1.statusText}, HTTP ${res2.status}: ${res2.statusText}, HTTP ${res3.status}: ${res3.statusText}`
@@ -63,20 +54,16 @@ export interface MapProps {
   zoom: number;
 }
 
-
 function MapComponent({ startLat, startLng, endLat, endLng, zoom }: MapProps) {
-    //const mapRef = useRef<typeof LeafletMap | undefined>();
-    const mapRef = useRef<LeafletMap | undefined>();
-//    const controlRef = useRef<typeof L.Routing.control | undefined>();
-    const controlRef = useRef<L.Routing.Control | undefined>();
+  //const mapRef = useRef<typeof LeafletMap | undefined>();
+  const mapRef = useRef<LeafletMap | undefined>();
+  //    const controlRef = useRef<typeof L.Routing.control | undefined>();
+  const controlRef = useRef<L.Routing.Control | undefined>();
   const root = useRef<HTMLDivElement | null>(null);
   const [stylesInitialized, setStylesInitialized] = useState(false);
   const [error, setError] = useState<Error>();
   // const [scriptInitialized, setScriptInitialized] = useState(false);
-    const [data, setData] = useState([]);
-
-  
-
+  const [data, setData] = useState([]);
 
   useEffect(() => {
     if (root.current) {
@@ -100,21 +87,17 @@ function MapComponent({ startLat, startLng, endLat, endLng, zoom }: MapProps) {
         attribution: "© OpenStreetMap",
       }).addTo(mapRef.current);
 
-        
-        
-        
       const control = L.Routing.control({
         waypoints: [
           L.latLng(startLat, startLng), // START YOU MARKER LOCATION
           L.latLng(endLat, endLng), // END YOU MARKER LOCATION
         ],
 
-          geocoder: L.Control.Geocoder.nominatim(),
-    
+        geocoder: new Geocoder(),
+
         routeWhileDragging: true,
-        reverseWaypoints: true,
-          showAlternatives: true,
-        
+        routeDragInterval: 100,
+        showAlternatives: true,
 
         altLineOptions: {
           styles: [
@@ -122,6 +105,8 @@ function MapComponent({ startLat, startLng, endLat, endLng, zoom }: MapProps) {
             { color: "white", opacity: 0.8, weight: 6 },
             { color: "blue", opacity: 0.5, weight: 2 },
           ],
+          extendToWaypoints: true,
+          missingRouteTolerance: 100,
         },
       });
 
@@ -171,13 +156,8 @@ function MapComponent({ startLat, startLng, endLat, endLng, zoom }: MapProps) {
   );
 }
 
-
 export default createComponent(MapComponent, {
-argTypes: {
-    // msg: {
-    //   type: "string",
-    //     default: "Hello world!",
-    //        },
+  argTypes: {
     startLat: {
       type: "number",
       defaultValue: 42.54,
@@ -198,6 +178,5 @@ argTypes: {
       type: "number",
       defaultValue: 13,
     },
-   
-    },
+  },
 });
