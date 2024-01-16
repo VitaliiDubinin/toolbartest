@@ -8,3 +8,5 @@ spec:
   content:
     - component: codeComponent.LeafletRM
       name: leafletRM
+      props:
+        zoom: 10

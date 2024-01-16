@@ -1,10 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
 import L, { Map as LeafletMap } from "leaflet";
+//import { Control } from "leaflet";
 import { createComponent } from "@mui/toolpad-core";
 import "leaflet-routing-machine";
-import "leaflet-control-geocoder";
-
-// import DataVisualization from '../../datavizual/DataVizualization';
+import { Geocoder } from "leaflet-control-geocoder";
+//import 'leaflet-control-geocoder/dist/Control.Geocoder.css';
+import "leaflet-control-geocoder/dist/Control.Geocoder.js";
 
 const markerIconUrl =
   "https://esm.sh/leaflet@1.9.4/dist/images/marker-icon.png";
@@ -27,6 +28,7 @@ async function createLeafletStyles(doc: Document) {
   const res3 = await fetch(
     "https://esm.sh/leaflet-control-geocoder/dist/Control.Geocoder.css"
   );
+
   if (!res1.ok || !res2.ok || !res3.ok) {
     throw new Error(
       `HTTP ${res1.status}: ${res1.statusText}, HTTP ${res2.status}: ${res2.statusText}, HTTP ${res3.status}: ${res3.statusText}`
@@ -49,13 +51,14 @@ export interface MapProps {
   startLng: number;
   endLat: number;
   endLng: number;
-
   zoom: number;
 }
 
 function MapComponent({ startLat, startLng, endLat, endLng, zoom }: MapProps) {
-  const mapRef = useRef<typeof LeafletMap | undefined>();
-  const controlRef = useRef<typeof L.Routing.control | undefined>();
+  //const mapRef = useRef<typeof LeafletMap | undefined>();
+  const mapRef = useRef<LeafletMap | undefined>();
+  //    const controlRef = useRef<typeof L.Routing.control | undefined>();
+  const controlRef = useRef<L.Routing.Control | undefined>();
   const root = useRef<HTMLDivElement | null>(null);
   const [stylesInitialized, setStylesInitialized] = useState(false);
   const [error, setError] = useState<Error>();
@@ -91,6 +94,7 @@ function MapComponent({ startLat, startLng, endLat, endLng, zoom }: MapProps) {
         ],
 
         geocoder: L.Control.Geocoder.nominatim(),
+
         routeWhileDragging: true,
         reverseWaypoints: true,
         showAlternatives: true,
