@@ -93,10 +93,10 @@ function MapComponent({ startLat, startLng, endLat, endLng, zoom }: MapProps) {
           L.latLng(endLat, endLng), // END YOU MARKER LOCATION
         ],
 
-        geocoder: L.Control.Geocoder.nominatim(),
+        geocoder: new Geocoder(),
 
         routeWhileDragging: true,
-        reverseWaypoints: true,
+        routeDragInterval: 100,
         showAlternatives: true,
 
         altLineOptions: {
@@ -105,6 +105,8 @@ function MapComponent({ startLat, startLng, endLat, endLng, zoom }: MapProps) {
             { color: "white", opacity: 0.8, weight: 6 },
             { color: "blue", opacity: 0.5, weight: 2 },
           ],
+          extendToWaypoints: true,
+          missingRouteTolerance: 100,
         },
       });
 
