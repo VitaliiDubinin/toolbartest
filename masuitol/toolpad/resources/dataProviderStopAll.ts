@@ -19,7 +19,7 @@ export default createDataProvider({
 
    async getRecords({ paginationModel: { start = 0, pageSize=10 } }) {
        
-      const response = await axios.get('http://localhost:4995/api/stop/find-all',{
+      const response = await axios.get('http://localhost:4995/api/stop/find-all?api_key=KrtKNkLNGcwKQ56la4jcHwxF',{
         headers: {
           'Content-Type': 'application/json',
          }

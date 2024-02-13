@@ -363,7 +363,7 @@ spec:
       mode: query
       query:
         kind: rest
-        url: http://localhost:4995/api/stop-point/find-all
+        url: http://localhost:4995/api/stop-point/find-all?api_key=KrtKNkLNGcwKQ56la4jcHwxF
         searchParams: []
         headers: []
         method: GET

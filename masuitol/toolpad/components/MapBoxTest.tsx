@@ -2,15 +2,15 @@ import * as React from "react";
 import { Typography } from "@mui/material";
 import { createComponent } from "@mui/toolpad/browser";
 
-export interface pageRow2Props {
+export interface MapBoxTestProps {
   msg: string;
 }
 
-function pageRow2({ msg }: pageRow2Props) {
+function MapBoxTest({ msg }: MapBoxTestProps) {
   return <Typography>{msg}</Typography>;
 }
 
-export default createComponent(pageRow2, {
+export default createComponent(MapBoxTest, {
   argTypes: {
     msg: {
       type: "string",

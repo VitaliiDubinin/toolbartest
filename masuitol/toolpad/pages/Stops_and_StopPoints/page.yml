@@ -75,7 +75,7 @@ spec:
       mode: mutation
       query:
         kind: rest
-        url: http://localhost:4995/api/stop/find-all
+        url: http://localhost:4995/api/stop/find-all?api_key=KrtKNkLNGcwKQ56la4jcHwxF
         searchParams: []
         headers: []
         method: GET
@@ -83,7 +83,7 @@ spec:
       mode: query
       query:
         kind: rest
-        url: http://localhost:4995/api/stop/find-all
+        url: http://localhost:4995/api/stop/find-all?api_key=KrtKNkLNGcwKQ56la4jcHwxF
         searchParams: []
         headers: []
         method: GET
@@ -102,7 +102,7 @@ spec:
       mode: query
       query:
         kind: rest
-        url: http://localhost:4995/api/stop-point/find-all
+        url: http://localhost:4995/api/stop-point/find-all?api_key=KrtKNkLNGcwKQ56la4jcHwxF
         searchParams: []
         headers: []
         method: GET

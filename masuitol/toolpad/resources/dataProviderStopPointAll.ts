@@ -30,7 +30,7 @@ export default createDataProvider({
     // const records = DATA?.slice(start, start + pageSize);
     // return { records, totalCount: DATA?.length };
 
-          const response = await axios.get('http://localhost:4995/api/stop-point/find-all',{
+          const response = await axios.get('http://localhost:4995/api/stop-point/find-all?api_key=KrtKNkLNGcwKQ56la4jcHwxF',{
         headers: {
           'Content-Type': 'application/json',
          }
