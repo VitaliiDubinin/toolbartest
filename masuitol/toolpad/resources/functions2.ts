@@ -132,7 +132,7 @@ export async function updateStopPointForm(values) {
         x: values.xlat,
         y: values.xlong,
       },
-      stopId: values.refstopid || null,
+      stopId: values.stop_id || null,
     };
 
 

@@ -8,7 +8,9 @@
     "start": "toolpad start"
   },
   "dependencies": {
-    "@mui/toolpad": "^0.1.43",
+    "@mapbox/mapbox-gl-draw": "^1.4.3",
+    "@mapbox/mapbox-gl-geocoder": "^5.0.2",
+    "@mui/toolpad": "^0.1.50",
     "axios": "^1.6.4",
     "leaflet": "^1.9.4",
     "leaflet-control-geocoder": "^2.4.0",

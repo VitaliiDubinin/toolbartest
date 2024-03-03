@@ -1,20 +1,41 @@
-import * as React from "react";
-import { Typography } from "@mui/material";
+
+import React from 'react';
+import MapBoxComponent from "./MapBoxComponent";
 import { createComponent } from "@mui/toolpad/browser";
 
 export interface MapBoxTestProps {
-  msg: string;
+  startLat: number;
+  startLng: number;
+  endLat: number;
+  endLng: number;
+  zoom: number;
 }
 
-function MapBoxTest({ msg }: MapBoxTestProps) {
-  return <Typography>{msg}</Typography>;
+function MapBoxTest({ startLat, startLng, endLat, endLng, zoom }: MapBoxTestProps) {
+  return <MapBoxComponent startLat={startLat} startLng={startLng} endLat={endLat} endLng={endLng} zoom={zoom} />;
 }
 
 export default createComponent(MapBoxTest, {
   argTypes: {
-    msg: {
-      type: "string",
-      default: "Hello world!",
+    startLat: {
+      type: "number",
+      defaultValue: 42.54,
+    },
+    startLng: {
+      type: "number",
+      defaultValue: 27.453,
+    },
+    endLat: {
+      type: "number",
+      defaultValue: 42.659,
+    },
+    endLng: {
+      type: "number",
+      defaultValue: 27.736,
+    },
+    zoom: {
+      type: "number",
+      defaultValue: 13,
     },
   },
 });

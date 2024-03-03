@@ -1,4 +1,4 @@
-# yaml-language-server: $schema=https://raw.githubusercontent.com/mui/mui-toolpad/v0.1.43/docs/schemas/v1/definitions.json#properties/Page
+# yaml-language-server: $schema=https://raw.githubusercontent.com/mui/mui-toolpad/v0.1.50/docs/schemas/v1/definitions.json#properties/Page
 
 apiVersion: v1
 kind: page
@@ -8,3 +8,7 @@ spec:
   content:
     - component: codeComponent.LeafMapBox
       name: leafMapBox
+      props:
+        startLat: 42.54
+        zoom: 9
+        maxZoom: 13

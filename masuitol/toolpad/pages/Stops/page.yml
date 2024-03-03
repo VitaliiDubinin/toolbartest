@@ -1,9 +1,9 @@
-# yaml-language-server: $schema=https://raw.githubusercontent.com/mui/mui-toolpad/v0.1.43/docs/schemas/v1/definitions.json#properties/Page
+# yaml-language-server: $schema=https://raw.githubusercontent.com/mui/mui-toolpad/v0.1.50/docs/schemas/v1/definitions.json#properties/Page
 
 apiVersion: v1
 kind: page
 spec:
-  title: stoppoints
+  title: stops
   content:
     - component: PageRow
       name: pageRow11
@@ -29,7 +29,7 @@ spec:
                     height: 40
                     loading: false
                 - component: Text
-                  name: stpointpagehead
+                  name: stopspagehead
                   layout:
                     columnSize: 1.8630490956072352
                     horizontalAlign: center
@@ -43,7 +43,7 @@ spec:
                 justifyContent: start
               children:
                 - component: Text
-                  name: stoppointtabhead
+                  name: stopstabhead
                   layout:
                     columnSize: 2.329004329004329
                     horizontalAlign: center
@@ -73,16 +73,15 @@ spec:
                     color: error
                     size: small
                     onClick:
-                      $$jsExpressionAction: >+
-                        //await deleteCustomer.call();
-
-
-                        contCreateStop.visible = contCreateStop.visible === false ? true : false;
-
+                      $$jsExpressionAction: |-
+                        const ret=dataStopGrid.selection.id;
+                        console.log(ret)
+                         actDelStop.call(ret);
+                         console.log("actDelStop.call done");
                     fullWidth: true
-                    disabled:
-                      $$jsExpression: |
-                        !customersGrid.selection
+                    # disabled:
+                    #   $$jsExpression: |
+                    #     !customersGrid.selection
                     sx:
                       background: red
                 - component: Button
@@ -93,16 +92,13 @@ spec:
                     content: Add Stop
                     size: small
                     onClick:
-                      $$jsExpressionAction: >+
-                        //await deleteCustomer.call();
-
-
-                        contCreateStop.visible = contCreateStop.visible === false ? true : false;
-
+                      $$jsExpressionAction: >
+                        contCreateStop.visible = contCreateStop.visible ===
+                        false ? true : false;
                     fullWidth: true
-                    disabled:
-                      $$jsExpression: |
-                        !customersGrid.selection
+                    # disabled:
+                    #   $$jsExpression: |
+                    #     !customersGrid.selection
             - component: DataGrid
               name: dataStopGrid
               props:
@@ -150,8 +146,6 @@ spec:
               props:
                 onSubmit:
                   $$jsExpressionAction: |-
-                    //await updateStopPoint.call();
-                    //getCustomers.refetch();
                     actUpdStopForm.call()
                     queStopFindAll.refetch()
                 submitButtonText: null
@@ -220,7 +214,7 @@ spec:
                         placeholder: 55.75
                         defaultValue:
                           $$jsExpression: |
-                            dataStopPointGrid.selection.y
+                            dataStopGrid.selection.y
                 - component: PageRow
                   name: pageRow6
                   props:
@@ -239,7 +233,7 @@ spec:
                         placeholder: please add a description
                         defaultValue:
                           $$jsExpression: |
-                            dataStopPointGrid.selection.description
+                            dataStopGrid.selection.description
                     - component: TextField
                       name: address
                       layout:
@@ -350,7 +344,7 @@ spec:
                             placeholder: please add a description
                             defaultValue:
                               $$jsExpression: |
-                                dataStopPointGrid.selection.description
+                                dataStopGrid.selection.description
                         - component: TextField
                           name: address1
                           layout:
@@ -447,4 +441,14 @@ spec:
           value:
             $$jsExpression: |
               createStopForm.value
+    - name: actDelStop
+      mode: mutation
+      query:
+        function: functions2.ts#deleteStop
+        kind: local
+      parameters:
+        - name: id
+          value:
+            $$jsExpression: |
+              dataStopGrid.selection.id
   display: shell
