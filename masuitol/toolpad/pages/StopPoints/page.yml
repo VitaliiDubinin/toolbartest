@@ -1,4 +1,4 @@
-# yaml-language-server: $schema=https://raw.githubusercontent.com/mui/mui-toolpad/v0.1.50/docs/schemas/v1/definitions.json#properties/Page
+# yaml-language-server: $schema=https://raw.githubusercontent.com/mui/mui-toolpad/v0.1.51/docs/schemas/v1/definitions.json#properties/Page
 
 apiVersion: v1
 kind: page
@@ -74,8 +74,10 @@ spec:
                     size: small
                     onClick:
                       $$jsExpressionAction: |-
-                        //await deleteCustomer.call();
-                        getCustomers.refetch();
+                        const ter=dataStopPointGrid.selection.id;
+                        console.log(ter)
+                        actDelStopPoint.call(ter);
+                        console.log("actDelStopPoint.call DONE")
                     fullWidth: true
                     disabled:
                       $$jsExpression: |
@@ -386,9 +388,9 @@ spec:
       mode: query
       query:
         kind: rest
-        url: http://localhost:4995/api/stop-point/find-all?api_key=KrtKNkLNGcwKQ56la4jcHwxF
+        url: http://localhost:4995/api/stop-point/find-all
         searchParams: []
-        headers: []
+        headers: [{ name: api_key, value: { $$env: API_KEY } }]
         method: GET
         transform: |-
 
@@ -423,4 +425,13 @@ spec:
           value:
             $$jsExpression: |
               createStopPointForm.value
+    - name: actDelStopPoint
+      mode: mutation
+      query:
+        function: functions2.ts#deleteStopPoint
+        kind: local
+      parameters:
+        - name: id
+          value:
+            $$jsExpression: dataStopPointGrid.selection.id
   display: shell

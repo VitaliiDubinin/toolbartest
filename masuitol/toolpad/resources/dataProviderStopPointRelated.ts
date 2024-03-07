@@ -1,21 +1,7 @@
-
-import { createDataProvider } from "@mui/toolpad/server";
+import { createDataProvider } from '@mui/toolpad-core/server';
 import axios from "axios";
-import { getStopPointAll, deleteStopPoint } from './functions2';
-import {  updateStopPoint } from './functions2';
+import { getStopPointAll, updateStopPoint, deleteStopPoint } from './functions2';
 const apiKey = process.env.API_KEY
-
-
-// import DATA  from '../../public/movies.json';
-// export default createDataProvider({
-//   async getRecords({ paginationModel: { start = 0, pageSize=3 } }) {
-//     const records = DATA.movies.slice(start, start + pageSize);
-//     return { records, totalCount: DATA.movies.length };
-//   },
-// });
-
-//import { DATA } from './functions2';
-
 
 
 // let DATA = []; 
@@ -24,16 +10,16 @@ const apiKey = process.env.API_KEY
 //   DATA = data; 
 // });
 
-// import { getStopPointAll, updateStop } from './functions2';
-
 
 export default createDataProvider({
+  
+  async getRecords({sid=6, paginationModel: { start = 0, pageSize=3 } }) {
+    console.log("sid",sid)
 
-  async getRecords({ paginationModel: { start = 0, pageSize=3 } }) {
-    // const records = DATA?.slice(start, start + pageSize);
-    // return { records, totalCount: DATA?.length };
 
-          const response = await axios.get('http://localhost:4995/api/stop-point/find-all',{
+          // const response = await axios.get('http://localhost:4995/api/stop-point/find-all?api_key=KrtKNkLNGcwKQ56la4jcHwxF',{
+   //       const response = await axios.get(`http://localhost:4995/api/stop/fetch-stop-points/5?api_key=KrtKNkLNGcwKQ56la4jcHwxF`,{
+          const response = await axios.get(`http://localhost:4995/api/stop/fetch-stop-points/${sid}`,{
         headers: {
           'Content-Type': 'application/json',
           'api_key': apiKey,
@@ -55,7 +41,8 @@ export default createDataProvider({
           y:item.point.y,
     }));
  const totalCount = records.length;
-
+console.log("records", records)
+console.log("totalCount",totalCount)
     return { records, totalCount };
   },
 

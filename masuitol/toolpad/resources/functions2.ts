@@ -1,18 +1,24 @@
 import axios from 'axios';
 //export let DATA = [];
+const apiKey = process.env.API_KEY
 
 
 export async function getStopPointAll() {
   try {
+
+//    console.log("apiKey",apiKey)
+
       const headers = {
         'Content-Type': 'application/json',
+        'api_key': apiKey,
+
       };
 
-      const response = await axios.get('http://localhost:4995/api/stop-point/find-all?api_key=KrtKNkLNGcwKQ56la4jcHwxF',{
+      const response = await axios.get('http://localhost:4995/api/stop-point/find-all',{
         headers,
       });
 
-      console.log('GET Request Response:', response.data);
+     // console.log('GET Request Response:', response.data);
     //   DATA=response.data
     // return DATA;
         return response.data.map((item) => ({
@@ -41,6 +47,7 @@ export async function updateStopPoint(id, data) {
     const respoint = await axios.get(`http://localhost:4995/api/stop-point/${id}`, {
       headers: {
         'Content-Type': 'application/json',
+        'api_key': apiKey,
       },
     });
 
@@ -78,6 +85,7 @@ export async function updateStopPoint(id, data) {
   //  console.log("requestBody",requestBody)
     const headers = {
       'Content-Type': 'application/json',
+      'api_key': apiKey,
     };
 
     const response = await axios.put('http://localhost:4995/api/stop-point/edit', requestBody, {
@@ -96,9 +104,10 @@ export async function updateStopPoint(id, data) {
 export async function deleteStopPoint(id) {
   try {
     
-    const resdel = await axios.delete(`http://localhost:4995/api/stop-point/${id}?api_key=KrtKNkLNGcwKQ56la4jcHwxF`, {
+    const resdel = await axios.delete(`http://localhost:4995/api/stop-point/${id}`, {
   headers: {
     'Content-Type': 'application/json',
+    'api_key': apiKey,
   },
 });
 
@@ -141,9 +150,10 @@ export async function updateStopPointForm(values) {
 
       const headers = {
         'Content-Type': 'application/json',
+        'api_key': apiKey,
       };
 
-      const response = await axios.put('http://localhost:4995/api/stop-point/edit?api_key=KrtKNkLNGcwKQ56la4jcHwxF', requestBody, {
+      const response = await axios.put('http://localhost:4995/api/stop-point/edit', requestBody, {
         headers,
       });
 
@@ -182,9 +192,10 @@ export async function createStopPointForm(values) {
 
       const headers = {
         'Content-Type': 'application/json',
+        'api_key': apiKey,
       };
 
-      const response = await axios.post('http://localhost:4995/api/stop-point/create?api_key=KrtKNkLNGcwKQ56la4jcHwxF', requestBody, {
+      const response = await axios.post('http://localhost:4995/api/stop-point/create', requestBody, {
         headers,
       });
 
@@ -200,12 +211,15 @@ export async function createStopPointForm(values) {
 
 
 export async function getStopAll() {
+ 
   try {
       const headers = {
         'Content-Type': 'application/json',
+        'api_key': apiKey,
+
       };
 
-      const response = await axios.get('http://localhost:4995/api/stop/find-all?api_key=KrtKNkLNGcwKQ56la4jcHwxF',{
+      const response = await axios.get('http://localhost:4995/api/stop/find-all',{
         headers,
       });
 
@@ -234,9 +248,10 @@ export async function getStopAll() {
 
 export async function updateStop(id, data) {
   try {
-    const respoint = await axios.get(`http://localhost:4995/api/stop/${id}?api_key=KrtKNkLNGcwKQ56la4jcHwxF`, {
+    const respoint = await axios.get(`http://localhost:4995/api/stop/${id}`, {
       headers: {
         'Content-Type': 'application/json',
+        'api_key': apiKey,
       },
     });
 
@@ -271,9 +286,10 @@ export async function updateStop(id, data) {
   //  console.log("requestBody",requestBody)
     const headers = {
       'Content-Type': 'application/json',
+      'api_key': apiKey,
     };
 
-    const response = await axios.put('http://localhost:4995/api/stop/edit?api_key=KrtKNkLNGcwKQ56la4jcHwxF', requestBody, {
+    const response = await axios.put('http://localhost:4995/api/stop/edit', requestBody, {
       headers,
     });
 
@@ -296,9 +312,10 @@ export async function deleteStop(id) {
     // });
 
 
-    const resdel = await axios.delete(`http://localhost:4995/api/stop/${id}?api_key=KrtKNkLNGcwKQ56la4jcHwxF`, {
+    const resdel = await axios.delete(`http://localhost:4995/api/stop/${id}`, {
       headers: {
         'Content-Type': 'application/json',
+        'api_key': apiKey,
       },
     });
 
@@ -317,12 +334,12 @@ export async function deleteStop(id) {
 
 export async function updateStopForm(values) {
   try {
- 
+ console.log("values", values)
     const transformedValues = {
       persistent: {
         id: values.ids,
         name: values.names,
-        description: values.descr || null,
+        description: values.descrs || null,
         creator: values.creator || 100, 
         locales: [],
         active: true,
@@ -341,9 +358,10 @@ export async function updateStopForm(values) {
 
       const headers = {
         'Content-Type': 'application/json',
+        'api_key': apiKey,
       };
 
-      const response = await axios.put('http://localhost:4995/api/stop/edit?api_key=KrtKNkLNGcwKQ56la4jcHwxF', requestBody, {
+      const response = await axios.put('http://localhost:4995/api/stop/edit', requestBody, {
         headers,
       });
 
@@ -352,7 +370,7 @@ export async function updateStopForm(values) {
       return response.data;
 
   } catch (error) {
-    console.error('Error updating stop point:', error);
+   // console.error('Error updating stop point:', error);
     throw error;
   }
 }
@@ -365,7 +383,7 @@ export async function createStopForm(values) {
       persistent: {
         id: values.ids,
         name: values.names,
-        description: values.descr || null,
+        description: values.descrs || null,
         creator: values.creator || 100, 
         locales: [],
         active: true,
@@ -379,9 +397,10 @@ export async function createStopForm(values) {
 
       const headers = {
         'Content-Type': 'application/json',
+        'api_key': apiKey,
       };
 
-      const response = await axios.post('http://localhost:4995/api/stop/create?api_key=KrtKNkLNGcwKQ56la4jcHwxF', requestBody, {
+      const response = await axios.post('http://localhost:4995/api/stop/create', requestBody, {
         headers,
       });
 
@@ -391,6 +410,44 @@ export async function createStopForm(values) {
 
   } catch (error) {
     console.error('Error updating stop point:', error);
+    throw error;
+  }
+}
+
+
+export async function getRelatedStopPoint(id) {
+  if (!id){return }
+  //console.log(id)
+  try {
+      const headers = {
+        'Content-Type': 'application/json',
+        'api_key': apiKey,
+      };
+
+      const response = await axios.get(`http://localhost:4995/api/stop/fetch-stop-points/${id}`,{
+        headers,
+      });
+
+      console.log('GET Request Response:', response.data);
+    //   DATA=response.data
+    // return DATA;
+        return response.data.map((item) => ({
+
+        id: item.persistent.id,
+        name: item.persistent.name,
+        description: item.persistent.description,
+        creator: item.persistent.creator,
+        locales: item.persistent.locales,
+        active: item.persistent.active,
+        x: item.point.x,
+        y: item.point.y,
+        number: item.number,
+//        point: item.point,
+      
+    }));
+
+  } catch (error) {
+    console.error('Error getting stop point:', error.response.data.message);
     throw error;
   }
 }

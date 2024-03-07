@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "toolpad dev",
     "build": "toolpad build",
-    "start": "toolpad start"
+    "start": "toolpad start --port 3003"
   },
   "dependencies": {
     "@mapbox/mapbox-gl-draw": "^1.4.3",
@@ -15,7 +15,9 @@
     "leaflet": "^1.9.4",
     "leaflet-control-geocoder": "^2.4.0",
     "leaflet-routing-machine": "^3.2.12",
-    "mapbox-gl": "^3.1.2"
+    "mapbox-gl": "^3.1.2",
+    "@types/node": "^20.11.25"
+    
   },
   "devDependencies": {
     "@types/leaflet": "^1.9.8",

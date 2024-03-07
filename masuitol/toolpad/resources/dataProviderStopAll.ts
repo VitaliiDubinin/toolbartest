@@ -1,6 +1,7 @@
 import { createDataProvider } from "@mui/toolpad/server";
 import { getStopAll, updateStop, deleteStop } from './functions2';
 import axios from "axios";
+const apiKey = process.env.API_KEY
 //import { getStopAll } from './functions2';
 
 // let DATA = []; 
@@ -18,10 +19,11 @@ export default createDataProvider({
   
 
    async getRecords({ paginationModel: { start = 0, pageSize=10 } }) {
-       
-      const response = await axios.get('http://localhost:4995/api/stop/find-all?api_key=KrtKNkLNGcwKQ56la4jcHwxF',{
+     
+      const response = await axios.get('http://localhost:4995/api/stop/find-all',{
         headers: {
           'Content-Type': 'application/json',
+          'api_key': apiKey,
          }
       });
   

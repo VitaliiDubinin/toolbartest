@@ -39,25 +39,12 @@ spec:
             type: json
           - field: active
             type: boolean
-
         rowsSource: dataProvider
-        parameters:
-          - name: sid
-            value: 6
-
         dataProviderId: dataProviderStopAll.ts:default
         hideToolbar: false
         loading: false
-        height: 302
-    - component: TextField
-      name: textField
-      props:
-        defaultValue:
-          $$jsExpression: (!dataStopGrid.selection) === true ? "no data
-            selected":dataStopGrid.selection.id
-        disabled: false
     - component: DataGrid
-      name: relatedStopPointGrid
+      name: dataStopPointGrid
       props:
         columns:
           - field: id
@@ -78,12 +65,11 @@ spec:
             type: number
           - field: number
             type: number
-        id: 6
-        dataProviderId: dataProviderStopPointRelated.ts:default
-        rowsSource: prop
-        height: 352
         rows:
-          $$jsExpression: queHttpGetRelSP.data
+          $$jsExpression: |
+            stopPointFindAll.data
+        dataProviderId: dataProviderStopPointAll.ts:default
+        rowsSource: dataProvider
   queries:
     - name: actStopFindAll
       mode: mutation
@@ -128,52 +114,4 @@ spec:
             return result;
           });
         transformEnabled: true
-    - name: actGetRelatedSP
-      mode: mutation
-      query:
-        function: functions2.ts#getRelatedStopPoint
-        kind: local
-      parameters:
-        - name: id
-          value:
-            $$jsExpression: "5"
-    - name: actHttpGetRelSP
-      mode: mutation
-      query:
-        kind: rest
-        url: http://localhost:4995/api/stop/fetch-stop-points/5
-        headers: [{ name: api_key, value: { $$env: API_KEY } }]
-        method: GET
-        searchParams: []
-      parameters:
-        - name: id
-          value:
-            $$jsExpression: (!dataStopGrid.selection) === true ? null:dataStopGrid.selection.id
-    - name: queHttpGetRelSP
-      mode: query
-      query:
-        kind: rest
-        url:
-          $$jsExpression: "`http://localhost:4995/api/stop/fetch-stop-points/${parameters.id}`"
-        headers: [{ name: api_key, value: { $$env: API_KEY } }]
-        method: GET
-        transformEnabled: true
-        searchParams: []
-        transform: >-
-          //return data;
-
-          //return data.map(elem => {  const persistent = elem.persistent; const copy = { ...persistent, ...elem }; delete copy.persistent; return copy; })
-
-          return data.map(elem => {
-            const { persistent, point, ...rest } = elem;
-            const combined = { ...persistent, ...point };
-            const result = { ...combined, ...rest };
-            return result;
-          });
-      parameters:
-        - name: id
-          value:
-            $$jsExpression: (!dataStopGrid.selection) === true ?
-              dataStopGrid.rows[0].id:dataStopGrid.selection.id
-
   display: shell
