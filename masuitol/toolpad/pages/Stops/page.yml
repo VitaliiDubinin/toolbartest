@@ -358,15 +358,23 @@ spec:
       mode: mutation
       query:
         kind: rest
-        url: http://localhost:4995/api/stop/find-all
+        url:
+          $$jsExpression: parameters.api_url+parameters.stop
         searchParams: []
         headers: [{ name: api_key, value: { $$env: API_KEY } }]
         method: GET
+      parameters:
+        - name: api_url
+          value:
+            $$env: API_URL
+        - name: stop
+          value: stop/find-all
     - name: queStopFindAll
       mode: query
       query:
         kind: rest
-        url: http://localhost:4995/api/stop/find-all
+        url:
+          $$jsExpression: parameters.api_url+parameters.stop
         searchParams: []
         headers: [{ name: api_key, value: { $$env: API_KEY } }]
         method: GET
@@ -381,11 +389,18 @@ spec:
 
           return data.map(elem => {  const persistent = elem.persistent; const copy = { ...persistent, ...elem }; delete copy.persistent; return copy; })
         transformEnabled: true
+      parameters:
+        - name: api_url
+          value:
+            $$env: API_URL
+        - name: stop
+          value: stop/find-all
     - name: actStopPointEdit
       mode: mutation
       query:
         kind: rest
-        url: http://localhost:4995/api/stop-point/edit
+        url:
+          $$jsExpression: parameters.api_url+parameters.stop_point_edit
         searchParams: []
         headers:
           [
@@ -414,6 +429,12 @@ spec:
                 "stopId": 12
             }
           contentType: application/json
+      parameters:
+        - name: api_url
+          value:
+            $$env: API_URL
+        - name: stop_point_edit
+          value: stop-point/edit
     - name: actUpdStopForm
       mode: mutation
       query:
@@ -428,13 +449,20 @@ spec:
       mode: mutation
       query:
         kind: rest
-        url: http://localhost:4995/api/stop-point/find-all
+        url:
+          $$jsExpression: parameters.api_url+parameters.stop_point
         searchParams: []
         headers:
           - name: api_key
             value:
               $$env: API_KEY
         method: GET
+      parameters:
+        - name: api_url
+          value:
+            $$env: API_URL
+        - name: stop_point
+          value: stop-point/find-all
     - name: actCreateStopForm
       mode: mutation
       query:

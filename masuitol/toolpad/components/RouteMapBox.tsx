@@ -3,6 +3,9 @@ import mapboxgl from "mapbox-gl";
 import MapboxDraw from "@mapbox/mapbox-gl-draw";
 import MapboxGeocoder from "@mapbox/mapbox-gl-geocoder";
 import { createComponent } from "@mui/toolpad-core";
+const mapBoxToken = process.env.MAP_BOX_TOKEN
+
+
 
 const testRouteGeoJSON = {
   "type": "FeatureCollection",
@@ -130,7 +133,8 @@ function MapComponent({ maxZoom }: MapProps) {
   
   
   useEffect(() => {
-    mapboxgl.accessToken = 'pk.eyJ1Ijoia2FuZXJ2YSIsImEiOiJjbHNjNnpza3Uwa2FrMmlvNWNpYTN5bzBiIn0.wCkSebd9BeT4zpV2a_ygAg';
+    console.log(mapBoxToken)
+    mapboxgl.accessToken = mapBoxToken;
 
     if (mapContainerRef.current) {
       map.current = new mapboxgl.Map({

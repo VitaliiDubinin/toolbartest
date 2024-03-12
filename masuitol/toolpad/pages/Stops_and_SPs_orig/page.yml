@@ -47,6 +47,14 @@ spec:
       name: dataStopPointGrid
       props:
         columns:
+          - field: number
+            type: number
+          - field: abbreviation
+            type: string
+          - field: address
+            type: string
+          - field: depot
+            type: string
           - field: id
             type: number
           - field: name
@@ -63,8 +71,6 @@ spec:
             type: number
           - field: y
             type: number
-          - field: number
-            type: number
         rows:
           $$jsExpression: |
             stopPointFindAll.data
@@ -75,15 +81,23 @@ spec:
       mode: mutation
       query:
         kind: rest
-        url: http://localhost:4995/api/stop/find-all
+        url:
+          $$jsExpression: parameters.api_url+parameters.stop
         searchParams: []
         headers: [{ name: api_key, value: { $$env: API_KEY } }]
         method: GET
+      parameters:
+        - name: api_url
+          value:
+            $$env: API_URL
+        - name: stop
+          value: stop/find-all
     - name: stopFindAll
       mode: query
       query:
         kind: rest
-        url: http://localhost:4995/api/stop/find-all
+        url:
+          $$jsExpression: parameters.api_url+parameters.stop
         searchParams: []
         headers: [{ name: api_key, value: { $$env: API_KEY } }]
         method: GET
@@ -98,11 +112,18 @@ spec:
 
           return data.map(elem => {  const persistent = elem.persistent; const copy = { ...persistent, ...elem }; delete copy.persistent; return copy; })
         transformEnabled: true
+      parameters:
+        - name: api_url
+          value:
+            $$env: API_URL
+        - name: stop
+          value: stop/find-all
     - name: stopPointFindAll
       mode: query
       query:
         kind: rest
-        url: http://localhost:4995/api/stop-point/find-all
+        url:
+          $$jsExpression: parameters.api_url+parameters.stop_point
         searchParams: []
         headers: [{ name: api_key, value: { $$env: API_KEY } }]
         method: GET
@@ -114,4 +135,10 @@ spec:
             return result;
           });
         transformEnabled: true
+      parameters:
+        - name: api_url
+          value:
+            $$env: API_URL
+        - name: stop_point
+          value: stop/find-all
   display: shell

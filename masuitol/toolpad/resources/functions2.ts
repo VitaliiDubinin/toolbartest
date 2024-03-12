@@ -4,10 +4,12 @@ const apiKey = process.env.API_KEY
 const apiURL = process.env.API_URL
 
 
+
 export async function getStopPointAll() {
   try {
 
-//    console.log("apiKey",apiKey)
+
+    console.log("apiKey",apiKey)
 
       const headers = {
         'Content-Type': 'application/json',
@@ -133,7 +135,7 @@ export async function updateStopPointForm(values) {
         id: values.idsp,
         name: values.namesp,
         description: values.descrsp || null,
-        creator: values.creator || 100, 
+        creator: values.creator || 10, 
         locales: [],
         active: true,
       },
@@ -178,7 +180,7 @@ export async function createStopPointForm(values) {
         id: null,
         name: values.namesp,
         description: values.descrsp || null,
-        creator: values.creator || 100, 
+        creator: values.creator || 10, 
         locales: [],
         active: true,
       },
@@ -341,7 +343,7 @@ export async function updateStopForm(values) {
         id: values.ids,
         name: values.names,
         description: values.descrs || null,
-        creator: values.creator || 100, 
+        creator: values.creator || 10, 
         locales: [],
         active: true,
       },
@@ -355,6 +357,8 @@ export async function updateStopForm(values) {
 
     const requestBody = JSON.stringify(transformedValues);
     
+    //console.log("apiKEY",apiKey);
+    //console.log("apiURL",apiURL);
     console.log("stop requestBODY",requestBody);
 
       const headers = {
@@ -385,7 +389,7 @@ export async function createStopForm(values) {
         id: values.ids,
         name: values.names,
         description: values.descrs || null,
-        creator: values.creator || 100, 
+        creator: values.creator || 10, 
         locales: [],
         active: true,
       },

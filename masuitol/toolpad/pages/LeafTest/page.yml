@@ -3,7 +3,7 @@
 apiVersion: v1
 kind: page
 spec:
-  title: MapTest
+  title: LeafTest
   display: shell
   content:
     # - component: codeComponent.LeafBharat

@@ -148,7 +148,7 @@ spec:
           value:
             $$env: API_URL
         - name: stop_point
-          value: stop/find-all
+          value: stop-point/find-all
     - name: actGetRelatedSP
       mode: mutation
       query:
@@ -181,7 +181,7 @@ spec:
       query:
         kind: rest
         url:
-          $$jsExpression: parameters.api_url+parameters.stop_point_fetch+parameters.id         
+          $$jsExpression: parameters.api_url+parameters.stop_point_fetch+parameters.id
         headers: [{ name: api_key, value: { $$env: API_KEY } }]
         method: GET
         transformEnabled: true

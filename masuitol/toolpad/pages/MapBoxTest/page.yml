@@ -6,11 +6,9 @@ spec:
   title: MapBoxTest
   display: shell
   content:
-    - component: codeComponent.LeafMapBox
+    - component: codeComponent.RouteMapBox
       name: leafMapBox
       props:
         startLat: 42.54
         zoom: 9
         maxZoom: 13
-    - component: codeComponent.MapBoxTest
-      name: mapBoxTest

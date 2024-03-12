@@ -388,7 +388,8 @@ spec:
       mode: query
       query:
         kind: rest
-        url: http://localhost:4995/api/stop-point/find-all
+        url:
+          $$jsExpression: parameters.api_url+parameters.stop_point
         searchParams: []
         headers: [{ name: api_key, value: { $$env: API_KEY } }]
         method: GET
@@ -401,6 +402,12 @@ spec:
             return result;
           });
         transformEnabled: true
+      parameters:
+        - name: api_url
+          value:
+            $$env: API_URL
+        - name: stop_point
+          value: stop-point/find-all
     - name: actUpdStopPointForm
       mode: mutation
       query:

@@ -1,7 +1,7 @@
 
 import React from 'react';
 import MapBoxComponent from "./MapBoxComponent";
-import { createComponent } from "@mui/toolpad/browser";
+import { createComponent } from "@mui/toolpad-core";
 
 export interface MapBoxTestProps {
   startLat: number;
