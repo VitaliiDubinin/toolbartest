@@ -89,15 +89,23 @@ spec:
       mode: mutation
       query:
         kind: rest
-        url: http://localhost:4995/api/stop/find-all
+        url:
+          $$jsExpression: parameters.api_url+parameters.stop
         searchParams: []
         headers: [{ name: api_key, value: { $$env: API_KEY } }]
         method: GET
+      parameters:
+        - name: api_url
+          value:
+            $$env: API_URL
+        - name: stop
+          value: stop/find-all
     - name: stopFindAll
       mode: query
       query:
         kind: rest
-        url: http://localhost:4995/api/stop/find-all
+        url:
+          $$jsExpression: parameters.api_url+parameters.stop
         searchParams: []
         headers: [{ name: api_key, value: { $$env: API_KEY } }]
         method: GET
@@ -112,11 +120,18 @@ spec:
 
           return data.map(elem => {  const persistent = elem.persistent; const copy = { ...persistent, ...elem }; delete copy.persistent; return copy; })
         transformEnabled: true
+      parameters:
+        - name: api_url
+          value:
+            $$env: API_URL
+        - name: stop
+          value: stop/find-all
     - name: stopPointFindAll
       mode: query
       query:
         kind: rest
-        url: http://localhost:4995/api/stop-point/find-all
+        url:
+          $$jsExpression: parameters.api_url+parameters.stop_point
         searchParams: []
         headers: [{ name: api_key, value: { $$env: API_KEY } }]
         method: GET
@@ -128,6 +143,12 @@ spec:
             return result;
           });
         transformEnabled: true
+      parameters:
+        - name: api_url
+          value:
+            $$env: API_URL
+        - name: stop_point
+          value: stop/find-all
     - name: actGetRelatedSP
       mode: mutation
       query:
@@ -141,11 +162,17 @@ spec:
       mode: mutation
       query:
         kind: rest
-        url: http://localhost:4995/api/stop/fetch-stop-points/5
+        url:
+          $$jsExpression: parameters.api_url+parameters.stop_point_fetch
         headers: [{ name: api_key, value: { $$env: API_KEY } }]
         method: GET
         searchParams: []
       parameters:
+        - name: api_url
+          value:
+            $$env: API_URL
+        - name: stop_point_fetch
+          value: stop/fetch-stop-points/5
         - name: id
           value:
             $$jsExpression: (!dataStopGrid.selection) === true ? null:dataStopGrid.selection.id
@@ -154,7 +181,7 @@ spec:
       query:
         kind: rest
         url:
-          $$jsExpression: "`http://localhost:4995/api/stop/fetch-stop-points/${parameters.id}`"
+          $$jsExpression: parameters.api_url+parameters.stop_point_fetch+parameters.id         
         headers: [{ name: api_key, value: { $$env: API_KEY } }]
         method: GET
         transformEnabled: true
@@ -171,6 +198,11 @@ spec:
             return result;
           });
       parameters:
+        - name: api_url
+          value:
+            $$env: API_URL
+        - name: stop_point_fetch
+          value: stop/fetch-stop-points/
         - name: id
           value:
             $$jsExpression: (!dataStopGrid.selection) === true ?

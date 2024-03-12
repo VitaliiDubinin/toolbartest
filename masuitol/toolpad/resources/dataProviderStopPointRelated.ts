@@ -2,6 +2,7 @@ import { createDataProvider } from '@mui/toolpad-core/server';
 import axios from "axios";
 import { getStopPointAll, updateStopPoint, deleteStopPoint } from './functions2';
 const apiKey = process.env.API_KEY
+const apiURL = process.env.API_URL
 
 
 // let DATA = []; 
@@ -13,13 +14,14 @@ const apiKey = process.env.API_KEY
 
 export default createDataProvider({
   
-  async getRecords({sid=6, paginationModel: { start = 0, pageSize=3 } }) {
+  async getRecords({sid=1, paginationModel: { start = 0, pageSize=3 } }) {
     console.log("sid",sid)
 
 
-          // const response = await axios.get('http://localhost:4995/api/stop-point/find-all?api_key=KrtKNkLNGcwKQ56la4jcHwxF',{
-   //       const response = await axios.get(`http://localhost:4995/api/stop/fetch-stop-points/5?api_key=KrtKNkLNGcwKQ56la4jcHwxF`,{
-          const response = await axios.get(`http://localhost:4995/api/stop/fetch-stop-points/${sid}`,{
+          // const response = await axios.get('http://localhost:4995/api/stop-point/find-all?api_key=${apiKey}',{
+   //       const response = await axios.get(`http://localhost:4995/api/stop/fetch-stop-points/5?api_key=${apiKey}`,{
+   //       const response = await axios.get(`http://localhost:4995/api/stop/fetch-stop-points/${sid}`,{
+          const response = await axios.get(`${apiURL}stop/fetch-stop-points/${sid}`,{
         headers: {
           'Content-Type': 'application/json',
           'api_key': apiKey,

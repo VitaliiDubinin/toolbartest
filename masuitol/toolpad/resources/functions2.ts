@@ -1,6 +1,7 @@
 import axios from 'axios';
 //export let DATA = [];
 const apiKey = process.env.API_KEY
+const apiURL = process.env.API_URL
 
 
 export async function getStopPointAll() {
@@ -14,7 +15,7 @@ export async function getStopPointAll() {
 
       };
 
-      const response = await axios.get('http://localhost:4995/api/stop-point/find-all',{
+      const response = await axios.get(`${apiURL}stop-point/find-all`,{
         headers,
       });
 
@@ -44,7 +45,7 @@ export async function getStopPointAll() {
 
 export async function updateStopPoint(id, data) {
   try {
-    const respoint = await axios.get(`http://localhost:4995/api/stop-point/${id}`, {
+    const respoint = await axios.get(`${apiURL}stop-point/${id}`, {
       headers: {
         'Content-Type': 'application/json',
         'api_key': apiKey,
@@ -88,7 +89,7 @@ export async function updateStopPoint(id, data) {
       'api_key': apiKey,
     };
 
-    const response = await axios.put('http://localhost:4995/api/stop-point/edit', requestBody, {
+    const response = await axios.put(`${apiURL}stop-point/edit`, requestBody, {
       headers,
     });
 
@@ -104,7 +105,7 @@ export async function updateStopPoint(id, data) {
 export async function deleteStopPoint(id) {
   try {
     
-    const resdel = await axios.delete(`http://localhost:4995/api/stop-point/${id}`, {
+    const resdel = await axios.delete(`${apiURL}stop-point/${id}`, {
   headers: {
     'Content-Type': 'application/json',
     'api_key': apiKey,
@@ -153,7 +154,7 @@ export async function updateStopPointForm(values) {
         'api_key': apiKey,
       };
 
-      const response = await axios.put('http://localhost:4995/api/stop-point/edit', requestBody, {
+      const response = await axios.put(`${apiURL}stop-point/edit`, requestBody, {
         headers,
       });
 
@@ -195,7 +196,7 @@ export async function createStopPointForm(values) {
         'api_key': apiKey,
       };
 
-      const response = await axios.post('http://localhost:4995/api/stop-point/create', requestBody, {
+      const response = await axios.post(`${apiURL}stop-point/create`, requestBody, {
         headers,
       });
 
@@ -219,7 +220,7 @@ export async function getStopAll() {
 
       };
 
-      const response = await axios.get('http://localhost:4995/api/stop/find-all',{
+      const response = await axios.get(`${apiURL}stop/find-all`,{
         headers,
       });
 
@@ -248,7 +249,7 @@ export async function getStopAll() {
 
 export async function updateStop(id, data) {
   try {
-    const respoint = await axios.get(`http://localhost:4995/api/stop/${id}`, {
+    const respoint = await axios.get(`${apiURL}stop/${id}`, {
       headers: {
         'Content-Type': 'application/json',
         'api_key': apiKey,
@@ -289,7 +290,7 @@ export async function updateStop(id, data) {
       'api_key': apiKey,
     };
 
-    const response = await axios.put('http://localhost:4995/api/stop/edit', requestBody, {
+    const response = await axios.put(`${apiURL}stop/edit`, requestBody, {
       headers,
     });
 
@@ -312,7 +313,7 @@ export async function deleteStop(id) {
     // });
 
 
-    const resdel = await axios.delete(`http://localhost:4995/api/stop/${id}`, {
+    const resdel = await axios.delete(`${apiURL}stop/${id}`, {
       headers: {
         'Content-Type': 'application/json',
         'api_key': apiKey,
@@ -361,7 +362,7 @@ export async function updateStopForm(values) {
         'api_key': apiKey,
       };
 
-      const response = await axios.put('http://localhost:4995/api/stop/edit', requestBody, {
+      const response = await axios.put(`${apiURL}stop/edit`, requestBody, {
         headers,
       });
 
@@ -400,7 +401,7 @@ export async function createStopForm(values) {
         'api_key': apiKey,
       };
 
-      const response = await axios.post('http://localhost:4995/api/stop/create', requestBody, {
+      const response = await axios.post(`${apiURL}stop/create`, requestBody, {
         headers,
       });
 
@@ -424,7 +425,7 @@ export async function getRelatedStopPoint(id) {
         'api_key': apiKey,
       };
 
-      const response = await axios.get(`http://localhost:4995/api/stop/fetch-stop-points/${id}`,{
+      const response = await axios.get(`${apiURL}stop/fetch-stop-points/${id}`,{
         headers,
       });
 
