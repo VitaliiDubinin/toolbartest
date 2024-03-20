@@ -3,7 +3,8 @@ import mapboxgl from "mapbox-gl";
 import MapboxDraw from "@mapbox/mapbox-gl-draw";
 import MapboxGeocoder from "@mapbox/mapbox-gl-geocoder";
 import { createComponent } from "@mui/toolpad-core";
-const mapBoxToken = process.env.MAP_BOX_TOKEN
+//const mapBoxToken = process.env.MAP_BOX_TOKEN
+const mapBoxToken = "pk.eyJ1Ijoia2FuZXJ2YSIsImEiOiJjbHNjNnpza3Uwa2FrMmlvNWNpYTN5bzBiIn0.wCkSebd9BeT4zpV2a_ygAg"
 
 
 
@@ -133,7 +134,7 @@ function MapComponent({ maxZoom }: MapProps) {
   
   
   useEffect(() => {
-    console.log(mapBoxToken)
+
     mapboxgl.accessToken = mapBoxToken;
 
     if (mapContainerRef.current) {

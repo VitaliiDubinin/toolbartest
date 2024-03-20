@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import mapboxgl from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
+const mapBoxToken = process.env.MAP_BOX_TOKEN
 
 interface MapBoxComponentProps {
   startLat: number;
@@ -15,7 +16,7 @@ function MapBoxComponent({ startLat, startLng, endLat, endLng, zoom }: MapBoxCom
       const mapContainer = useRef(null);
 
   useEffect(() => {
-    mapboxgl.accessToken = 'pk.eyJ1Ijoia2FuZXJ2YSIsImEiOiJjbHNjNnpza3Uwa2FrMmlvNWNpYTN5bzBiIn0.wCkSebd9BeT4zpV2a_ygAg';
+    mapboxgl.accessToken = mapBoxToken;
     const map = new mapboxgl.Map({
       container: mapContainer.current!,
       style: 'mapbox://styles/mapbox/streets-v11',
